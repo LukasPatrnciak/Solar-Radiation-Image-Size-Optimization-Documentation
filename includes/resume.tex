@@ -1,0 +1,11 @@
+Cieľom zadania bolo implementovať program, ktorý predpovedá cenu letenky, pričom vstupné dáta boli poskytnuté z AIS. 
+
+Dáta boli očistené od identifikátorov, nulových hodnôt a duplicít, pričom v prípade numerických množín bola vykonaná taktiež aj kontrola, či sa v týchto množinách nenachádza aj textový reťazec a ak áno, nech sa nahradí mediánom zvyšných hodnôt. Tieto dáta boli následne zakódované LabelEncoding-om a TargetEncoding-om. 
+
+Následne boli dáta rozdelené na vstupnú a výstupnú trénovaciu a testovaciu množinu, pričom vstupná množina bola normalizovaná StandardScaler-om. Ďalej boli natrénované 3 modely - rozhodovací strom, Random Forest a SVM, pričom tieto modely boli vyhodnotené na trénovacej a testovacej množine pomocou (R)MSE a R2 skóre.
+
+Ďakej boli vybrané 3 príznaky pred normalizáciou, ktoré boli na grafe zafarbené v závislosti od výstupného parametra (ceny). Potom bola minimalizovaná množina pomocou PCA na 3 dimenzie a dáta boli na grafe opäť zafarbené podľa výstupného parametra (ceny). 
+
+Následne boli vybrané 3 podmnožiny príznakov (podľa korelačnej matice, podľa dôležitosti príznakov z Random Forest modelu a podľa variance pomocou PCA).
+
+Záver tejto práce sa týkal doplňujúcich úloh pre analýzu dát pomocou EDA(vykreslenie piatich rôznych grafov pre päť rôznych závislostí) a následného trénovania neurónovej siete per regresné úlohy.
