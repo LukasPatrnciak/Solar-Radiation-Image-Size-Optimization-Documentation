@@ -1,3 +1,16 @@
-Cieľom tohto zadania je  v programovacom jazyky Python implementovať program, ktorý bude klasifikovať vtáčikov na obrázku z poskytnutého datasetu, ktorý obsahuje približne 7200 obrázkov v trénovacej, testovacej a validačnej množine. Triedy sú určené podľa priečinka, v ktorom sa nachádzajú.  
+Táto práca sa zaoberá návrhom a optimalizáciou konvolučných neurónových sietí (\acrshort{cnn}) pre odhad intenzity slnečného žiarenia 
+na základe obrazových dát oblohy. Hlavným cieľom je analyzovať vplyv rozmerov vstupných obrázkov na presnosť regresného 
+modelu a identifikovať optimálnu konfiguráciu vstupných dát pre rôzne architektúry vlastných CNN modelov.
 
-Najprv je potrebné spracovať a analyzovať poskytnuté dáta a zobraziť reprezentanta z triedy. Potom je potrebné vytvoriť a natrénovať konvolučnú neurónovú sieť na klasifikáciu vtáčikov. Na tento účel vytvoríme konvolučnú neurónovú sieť s aspoň dvoma vrstvami, vrátane vytvorenia experimentov, kde boli zmenené niektoré hyperparametre. Na záver bolo potrebné zlepšenie výsledkov použitím princípov transfer learningu. 
+V rámci práce boli navrhnuté tri architektúry konvolučných neurónových sietí s rôznou komplexnosťou.
+ Pre každú architektúru boli systematicky testované rôzne rozmery vstupných obrázkov spolu s kombináciami hyperparametrov, 
+ ako sú rýchlosť učenia, veľkosť dávky, dropout a počet neurónov v plne prepojenej vrstve.
+
+Modely boli trénované a vyhodnocované pomocou metrík strednej absolútnej chyby (\acrshort{mae}), strednej 
+kvadratickej chyby (\acrshort{mse}) a 
+koreňovej strednej kvadratickej chyby (\acrshort{rmse}). Súčasne bol analyzovaný čas trénovania a počet potrebných epoch, čím sa 
+zohľadnila aj výpočtová náročnosť jednotlivých konfigurácií.
+
+Výsledky ukazujú, že vhodná voľba rozmeru vstupných obrázkov má významný vplyv na presnosť modelu aj jeho výpočtovú 
+efektívnosť. Na základe experimentov boli identifikované optimálne rozmery vstupov pre jednotlivé architektúry CNN, 
+ktoré dosahujú najnižšiu chybu odhadu slnečného žiarenia.

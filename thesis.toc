@@ -1,8 +1,0 @@
-\babel@toc {slovak}{}\relax 
-\thispagestyle {plain}
-\contentsline {section}{\'{U}vod}{1}{section*.2}%
-\contentsline {section}{\numberline {1}Spracovanie dát}{2}{section.3}%
-\contentsline {section}{Z\'{a}ver}{3}{section*.10}%
-\contentsline {section}{Zoznam pou\v {z}itej literat\'{u}ry}{4}{section*.11}%
-\babel@toc {slovak}{}\relax 
-\babel@toc {slovak}{}\relax 

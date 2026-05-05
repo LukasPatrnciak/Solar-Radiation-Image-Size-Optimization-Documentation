@@ -27,7 +27,7 @@
     \def\typPraceTemp{semin\'{a}rnu pr\'{a}cu}
     \def\typPraceTempII{semin\'{a}rnej pr\'{a}ce}
 \DeclareOption{zad}{\def\typPraceSkr{s}}
-    \def\isThesis{1}
+    \def\isThesis{0}
     \def\typPraceEn{Semestral Thesis}
     \def\typPrace{Semestrálna práca}
     \def\typPraceTemp{pr\'{a}cu}
@@ -196,7 +196,7 @@
 \def\FEIstudyProgramme#1{\def\@studijnyProgram{#1}}
 \newcommand{\printStudijnyProgram}{\@studijnyProgram}
 
-\def\@studijnyProgramEn{Multimedia Information and Communication Technologies}
+\def\@studijnyProgramEn{Applied Informatics}
 \def\FEIstudyProgrammeEn#1{\def\@studijnyProgramEn{#1}}
 \newcommand{\printStudijnyProgramEn}{\@studijnyProgramEn}
 
@@ -212,11 +212,11 @@
 \def\FEIstudyFieldEn#1{\def\@nazovStudijnehoOdboruEn{#1}}
 \newcommand{\printNazovStudijnehoOdboruEn}{\@nazovStudijnehoOdboruEn}
 
-\def\@skoliacePracovisko{\a'Ustav informa\v{c}n\a'ych a komunika\v{c}n\a'ych technologi\a'i}
+\def\@skoliacePracovisko{\a'Ustav informatiky a matematiky}
 \def\FEItrainingWorkplace#1{\def\@skoliacePracovisko{#1}}
 \newcommand{\printSkoliacePracovisko}{\@skoliacePracovisko}
 
-\def\@skoliacePracoviskoEn{Institute of Multimedia Information and Communication Technologiess}
+\def\@skoliacePracoviskoEn{Institute of Computer Science and Mathematics}
 \def\FEItrainingWorkplaceEn#1{\def\@skoliacePracoviskoEn{#1}}
 \newcommand{\printSkoliacePracoviskoEn}{\@skoliacePracoviskoEn}
 
@@ -309,14 +309,14 @@
             {0}{
                 \def\@skolaTemp{\printSkola}
                 \def\@skolaFakulta{\printFakulta}
-                %\def\@skolaEvCislo{{\fontsize{12pt}{1.3}\selectfont Eviden\v{c}n\a'e \v{c}\a'islo: \printEvidencneCislo}}
+                \def\@skolaEvCislo{{\fontsize{12pt}{1.3}\selectfont Eviden\v{c}n\a'e \v{c}\a'islo: \printEvidencneCislo}}
                 \def\@skolaNazovPrace{\printNazov}
                 \def\@skolaTypPrace{\typPrace}
                 }
             {1}{
                 \def\@skolaTemp{\printSkolaEn}
                 \def\@skolaFakulta{\printFakultaEn}
-                %\def\@skolaEvCislo{{\fontsize{12pt}{1.3}\selectfont Registration number: \printEvidencneCislo}}
+                \def\@skolaEvCislo{{\fontsize{12pt}{1.3}\selectfont Registration number: \printEvidencneCislo}}
                 \def\@skolaNazovPrace{\printNazovEn}
                 \def\@skolaTypPrace{\typPraceEn}
                 }
@@ -325,14 +325,13 @@
             {\fontsize{14pt}{1.3}\selectfont \bf \MakeTextUppercase{\@skolaTemp}\newline \MakeTextUppercase{\@skolaFakulta}}    
         \end{center}
         \vspace{10mm}
-        %\ifthenelse{\boolean{isThesis}}
-        %{
-        %    \@skolaEvCislo
-        %}{}
+        \ifthenelse{\boolean{isThesis}}
+        {
+            \@skolaEvCislo
+        }{}
         \vspace{60mm}
         \begin{center}
-            {\fontsize{16pt}{1.3}\selectfont \bf{\MakeTextUppercase{\@skolaNazovPrace}}} \\[1em]
-            \vspace{\baselineskip}
+            {\fontsize{16pt}{1.3}\selectfont \bf{\MakeTextUppercase{\@skolaNazovPrace}}} \\[1em] 
             {\bf\fontsize{16pt}{1.3}\selectfont \MakeTextUppercase{\@skolaTypPrace}}
         \end{center}
         \vspace{\fill}
@@ -357,14 +356,14 @@
                 \def\@skolaStudPr{\printStudijnyProgram}
                 \def\@skolaStudPrCisl{\printNazovStudijnehoOdboru}
                 \def\@skolaSkolPrac{\printSkoliacePracovisko}
-                %\def\@skolaEvCislo{{\fontsize{12pt}{1.3}\selectfont Eviden\v{c}n\a'e \v{c}\a'islo: \printEvidencneCislo}}
+                \def\@skolaEvCislo{{\fontsize{12pt}{1.3}\selectfont Eviden\v{c}n\a'e \v{c}\a'islo: \printEvidencneCislo}}
                 \def\@skolaNazovPrace{\printNazov}
                 \def\@skolaTypPrace{\typPrace}
                 \def\@tempStudProgr{\v{S}tudijn\a'y program:}
                 %\def\@tempCisloStud{\v{C}\a'islo \v{s}tudijn\a'eho odboru:}
-                \def\@tempNazovStud{\v{S}tudijn\a'y odbor:}
+                \def\@tempNazovStud{N\a'azov \v{s}tudijn\a'eho odboru:}
                 \def\@tempSkolPracov{\v{S}koliace pracovisko:}
-                \def\@tempVedPrace{Ved\a'uci pr\a'ace:}
+                \def\@tempVedPrace{Ved\a'uci z\a'avere\v{c}nej pr\a'ace:}
                 \def\@tempKonzultanta{Konzultant:}
                 \ifthenelse{\boolean{isThesis}}
                 {}{
@@ -382,7 +381,7 @@
                 \def\@skolaStudPr{\printStudijnyProgramEn}
                 \def\@skolaStudPrCisl{\printNazovStudijnehoOdboruEn}
                 \def\@skolaSkolPrac{\printSkoliacePracoviskoEn}
-                %\def\@skolaEvCislo{\fontsize{12pt}{1.3}\selectfont Registration number: \printEvidencneCislo}       
+                \def\@skolaEvCislo{\fontsize{12pt}{1.3}\selectfont Registration number: \printEvidencneCislo}       
                 \def\@skolaNazovPrace{\printNazovEn}
                 \def\@skolaTypPrace{\typPraceEn}
                 \def\@tempStudProgr{Study Programme:}
@@ -405,17 +404,16 @@
         \begin{center}
             {\fontsize{14pt}{1.3}\selectfont \bf \MakeTextUppercase{\@skolaTemp}\newline \MakeTextUppercase{\@skolaFakulta}}    
         \end{center}
-        %\vspace{10mm}
-        %{
-        %    \ifthenelse{\boolean{isThesis}}
-        %    {
-        %        \fontsize{12pt}{1.3}\selectfont \@skolaEvCislo
-        %    }{}
-        %}    
+        \vspace{10mm}
+        {
+            \ifthenelse{\boolean{isThesis}}
+            {
+                \fontsize{12pt}{1.3}\selectfont \@skolaEvCislo
+            }{}
+        }    
         \vspace{60mm}
         \begin{center}
             {\fontsize{16pt}{1.3}\selectfont \bf{\MakeTextUppercase{\@skolaNazovPrace}}} \\[1em]
-            \vspace{\baselineskip}
             {\bf\fontsize{16pt}{1.3}\selectfont  \MakeTextUppercase{\@skolaTypPrace}}
         \end{center}
         \vspace{\fill}
@@ -487,7 +485,7 @@
         \begin{minipage}[t]{21.5em}
             \printNazov
         \end{minipage} \\
-        Ved\a'uci pr\a'ace:\> \printVeduciZaverecnejPrace \\\IfEqCase*{\@tempKonzultant}{
+        Ved\a'uci z\a'avere\v{c}nej pr\a'ace:\> \printVeduciZaverecnejPrace \\\IfEqCase*{\@tempKonzultant}{
             {0}{}
             {1}{Konzultant:\>\printKonzultant \\}
                 }[]Miesto a rok predlo\v{z}enia pr\a'ace:\>\printMesto \ \@rok

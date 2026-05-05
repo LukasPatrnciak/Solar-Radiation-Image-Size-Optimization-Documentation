@@ -1,7 +1,12 @@
-Obrazová klasifikácia predstavuje jednu z kľúčových úloh počítačového videnia, s rozsiahlym využitím v oblasti biológie, medicíny, bezpečnosti či ekológie. V tomto článku sa zaoberáme problémom automatickej klasifikácie vtáctva na základe obrazových dát. Úlohou je navrhnúť a implementovať model, ktorý dokáže spoľahlivo rozlíšiť viaceré druhy vtákov na základe ich fotografií, pričom sú využívané moderné techniky hlbokého učenia.
+V tejto práci sa zameriavame na problém odhadu intenzity slnečného žiarenia 
+z fotografií oblohy. Pri návrhu modelov založených na konvolučných neurónových sieťach zohráva významnú úlohu nielen architektúra siete a jej hyperparametre,
+ ale aj vlastnosti vstupných dát. Jedným z kľúčových faktorov je rozmer vstupného obrázka, ktorý ovplyvňuje množstvo 
+ zachytenej informácie, presnosť modelu, ale aj výpočtovú náročnosť trénovania.
 
-Riešenie je postavené na architektúre konvolučných neurónových sietí (CNN), ktoré v poslednej dekáde preukázali vynikajúce výsledky pri spracovaní vizuálnych informácií. Okrem vlastného návrhu CNN architektúry sa v práci využívajú aj princípy transferového učenia, konkrétne modely predtrénované na rozsiahlych datasetoch ako ImageNet, s cieľom zlepšiť presnosť klasifikácie a efektivitu učenia.
+Cieľom tejto práce je analyzovať vplyv rozmerov vstupných obrázkov na kvalitu regresného modelu a nájsť 
+optimálne nastavenie pre rôzne architektúry konvolučných neurónových sietí. V rámci experimentov sú systematicky 
+testované viaceré konfigurácie modelov a hyperparametrov, pričom výsledky sú vyhodnocované pomocou štandardných
+ chybových metrík a časovej náročnosti trénovania.
 
-Súčasťou metodiky je podrobná analýza dátovej sady, normalizácia a augmentácia obrazových vstupov, experimentovanie s rôznymi konfiguráciami hyperparametrov a implementácia mechanizmov na predchádzanie pretrénovania modelu. Výsledky klasifikácie sú hodnotené na viacerých dátových množinách pomocou metrík úspešnosti a vizualizované prostredníctvom konfužných matíc. Doplnkovo je vykonaná analýza príznakov získaných z predtrénovaných sietí, ich zhlukovanie a následné využitie pre klasifikáciu pomocou alternatívnych modelov.
-
-Cieľom tejto práce je nielen dosiahnuť vysokú presnosť pri klasifikácii vtáčích druhov, ale aj porovnať prístup založený na vlastnej CNN architektúre s výkonom modelov vychádzajúcich z transfer learningu, čím sa otvára priestor pre diskusiu o vhodnosti jednotlivých prístupov pri riešení podobných úloh v praxi.
+Výsledkom práce je identifikácia optimálnych kombinácií architektúry a veľkosti vstupných obrázkov, ktoré poskytujú 
+najlepší kompromis medzi presnosťou odhadu a výpočtovou efektívnosťou.
