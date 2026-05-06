@@ -1,13 +1,37 @@
 \section{Použité metódy}
-
+V tejto kapitole budú popísané jednotlivé metódy použité v rámci implementácie a 
+vyhodnotenia optimálnych rozmerov obrázkov.
 
 
 
 
 \vspace{\baselineskip}
 \subsection{Konvolučné neurónové siete}
-čo je CNN (krátko)
-prečo vhodná na obrázky
+Konvolučné neurónové siete (\acrshort{cnn}) predstavujú špecializovaný typ neurónových 
+sietí určený na spracovanie dát s mriežkovou štruktúrou, ako sú napríklad obrázky. Charakteristickou vlastnosťou týchto sietí je využitie operácie konvolúcie, 
+ktorá umožňuje efektívnu extrakciu príznakov zo vstupných dát.
+Typická architektúra konvolučnej neurónovej siete sa skladá z viacerých základných vrstiev \cite{deepLearning,adam,globalPooling,dropout,batchNormalization,learningPython}:
+
+\begin{itemize}
+    \item \textbf{Vstupná vrstva:} slúži na načítanie vstupných dát, napríklad obrazov definovaného rozmeru.
+
+    \item \textbf{Konvolučné vrstvy:} realizujú extrakciu príznakov zo vstupných dát pomocou konvolučných jadier (filtrov). Tieto vrstvy umožňujú detekciu hrán, textúr a ďalších charakteristických vlastností obrazu.
+
+    \item \textbf{Aktivačné funkcie:} zavádzajú do modelu nelinearitu. Medzi najpoužívanejšie patrí funkcia ReLU (\textit{Rectified Linear Unit}).
+
+    \item \textbf{Normalizačné vrstvy:} zabezpečujú normalizáciu aktivácií jednotlivých vrstiev počas tréningu, čím prispievajú k stabilnejšiemu a rýchlejšiemu učeniu modelu.
+
+    \item \textbf{Pooling vrstvy:} slúžia na redukciu priestorových rozmerov príznakových máp a zníženie výpočtovej náročnosti siete. Najčastejšie sa používa max pooling.
+
+    \item \textbf{Global pooling vrstvy:} prevádzajú dvojrozmerné príznakové mapy na jednorozmerný vektor pomocou výpočtu globálnych štatistík, napríklad priemeru.
+
+    \item \textbf{Plne prepojené vrstvy:} realizujú kombináciu extrahovaných príznakov a vykonávajú finálne rozhodovanie modelu.
+
+    \item \textbf{Regularizačné vrstvy (Dropout):} slúžia na zníženie rizika preučenia modelu náhodnou deaktiváciou časti neurónov počas tréningu.
+
+    \item \textbf{Výstupná vrstva:} poskytuje finálny výstup neurónovej siete vo forme klasifikácie alebo numerickej predikcie.
+\end{itemize}
+
 
 
 
@@ -22,9 +46,23 @@ výstup = číslo (irradiance)
 
 \vspace{\baselineskip}
 \subsection{Metriky}
-MAE
-MSE
-RMSE. 
+Na vyhodnotenie modelu boli použité metriky MAE, MSE a RMSE. Ako stratová funkcia počas tréningu bola použitá metrika MSE (\textit{Mean Squared Error}), ktorá vyjadruje priemernú kvadratickú chybu medzi skutočnými a predikovanými hodnotami. Ako doplnková metrika počas tréningu bola sledovaná metrika MAE (\textit{Mean Absolute Error}), ktorá predstavuje priemernú absolútnu odchýlku predikcie od skutočnej hodnoty.
+
+Po natrénovaní modelu boli výsledky vyhodnotené aj v pôvodnej mierke cieľovej premennej \textit{Irradiance}. Okrem metrík MSE a MAE bola vypočítaná aj metrika RMSE (\textit{Root Mean Squared Error}), ktorá predstavuje druhú odmocninu z hodnoty MSE.
+
+\begin{equation}
+MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+\end{equation}
+
+\begin{equation}
+MAE = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|
+\end{equation}
+
+\begin{equation}
+RMSE = \sqrt{MSE}
+\end{equation}
+
+
 
 
 
@@ -36,8 +74,43 @@ RMSE.
 
 \vspace{\baselineskip}
 \subsection{Štruktúra dát}
+Štruktúra poskytnutých dát vo forme obrázkov použitá v práci je rozdelená na tri základné množiny: 
+\begin{enumerate}
+    \item \textbf{trénovaciu množinu}: slúži na učenie neurónovej siete a aktualizáciu parametrov modelu počas tréningového procesu,
 
+    \item \textbf{validačnú množinu}: používa sa na priebežné vyhodnocovanie modelu počas tréningu a na výber najvhodnejšej konfigurácie modelu bez priameho učenia,
 
+    \item \textbf{testovaciu množinu}: slúži na záverečné vyhodnotenie natrénovaného modelu na dátach, ktoré neboli použité počas procesu učenia ani validácie.
+\end{enumerate}
+Každá časť datasetu je uložená v samostatnom priečinku a obsahuje obrazové dáta spolu so súborom vo formáte CSV, v ktorom sú uložené príslušné hodnoty meranej veličiny. Dataset má nasledujúcu štruktúru:
+
+\begin{verbatim}
+dataset/
+|-- train/
+|   |-- images/
+|   |-- meteo_data.csv
+|
+|-- val/
+|   |-- images/
+|   |-- meteo_data.csv
+|
+|-- test/
+|   |-- images/
+|   |-- meteo_data.csv
+\end{verbatim}
+
+Priečinok \textbf{images} obsahuje vstupné obrazové dáta vo formátoch PNG, JPG alebo JPEG. Ku každému obrázku je v príslušnom CSV súbore uvedený jeho názov a hodnota cieľovej premennej. V tejto práci boli použité stĺpce \textbf{PictureName} a \textbf{Irradiance}. Stĺpec \textbf{PictureName} obsahuje názov obrazového súboru a stĺpec \textbf{Irradiance} obsahuje hodnotu slnečného žiarenia, ktorá predstavuje cieľovú hodnotu predikcie.
+
+Pri načítaní dát sa ku každému záznamu v CSV súbore priradí úplná cesta k príslušnému obrázku. Záznamy, pri ktorých chýba cieľová hodnota alebo príslušný obrazový súbor, sú z datasetu odstránené. Tým sa zabezpečí, že model pracuje iba s platnými dátami.
+
+Trénovacia množina slúži na učenie modelu, validačná množina sa používa na sledovanie priebehu učenia a výber najlepšej konfigurácie modelu. Testovacia množina je použitá až na záverečné vyhodnotenie natrénovaného modelu na dátach, ktoré neboli použité počas tréningu.
+
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=14cm]{img/obr1.png}
+%\caption{Príklad aplikácie DVB-S do DVB-C SMATV }
+%\label{OBR}
+%\end{figure}
 
 
 \vspace{\baselineskip}
@@ -49,18 +122,51 @@ RMSE.
 
 \vspace{\baselineskip}
 \subsection{Experimenty}
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{img/obr1.png}
-\caption{Príklad aplikácie DVB-S do DVB-C SMATV }
-\label{OBR}
-\end{figure}
 
 
 
 
 \section{Implementácia}
-\cite{learningPython}
+Na implementáciu navrhnutého riešenia bol použitý programovací jazyk Python \cite{learningPython} 
+spolu s viacerými externými knižnicami určenými na spracovanie dát, vizualizáciu a tvorbu 
+neurónových sietí.
+Pri implementácii boli použité nasledovné knižnice:
+
+\begin{itemize}[nolistsep, noitemsep]
+    \item \textbf{os} -- práca so súborovým systémom a adresármi operačného systému,
+    
+    \item \textbf{math} -- realizácia matematických operácií a výpočtov,
+    
+    \item \textbf{time} -- meranie času a sledovanie trvania operácií,
+    
+    \item \textbf{random} -- generovanie náhodných hodnôt,
+    
+    \item \textbf{pandas} -- spracovanie a analýza tabuľkových dát,
+    
+    \item \textbf{numpy} -- numerické výpočty a operácie nad viacrozmernými poľami,
+    
+    \item \textbf{matplotlib.pyplot} -- vizualizácia výsledkov a tvorba grafov,
+    
+    \item \textbf{tensorflow} -- framework určený na implementáciu a tréning neurónových sietí.
+\end{itemize}
+
+Na implementáciu konvolučnej neurónovej siete bolo využité rozhranie Keras, ktoré je súčasťou frameworku TensorFlow. Použitý bol modul \textbf{keras.Input} určený na definovanie vstupnej vrstvy neurónovej siete, modul \textbf{tensorflow.keras.layers} obsahujúci konvolučné, pooling a plne prepojené vrstvy a modul \textbf{tensorflow.keras.models} určený na vytváranie architektúr neurónových sietí.
+
+Na optimalizáciu procesu učenia bol použitý algoritmus \textbf{keras.Input}, ktorý sa nachádza v module \textbf{tensorflow.keras.optimizers.Adam}. Súčasťou implementácie boli aj callback mechanizmy z modulu \textbf{tensorflow.keras.callbacks}, konkrétne:
+\begin{itemize}[nolistsep, noitemsep]
+    \item \textbf{EarlyStopping} -- predčasné ukončenie tréningu pri stagnácii modelu,
+    
+    \item \textbf{ModelCheckpoint} -- automatické ukladanie najlepšieho modelu počas tréningu,
+    
+    \item \textbf{ReduceLROnPlateau} -- dynamická úprava rýchlosti učenia počas tréningu.
+\end{itemize}
+
+Pre spracovanie vstupných obrázkoch obsahujúceho obrázky bol použitý modul \textbf{tensorflow.keras.preprocessing.image}, konkrétne funkcie:
+\begin{itemize}[nolistsep, noitemsep]
+    \item \textbf{load\_img} -- načítanie obrazových dát,
+    
+    \item \textbf{img\_to\_array} -- prevod obrázkov do numerickej reprezentácie vo forme poľa.
+\end{itemize}
 
 
 

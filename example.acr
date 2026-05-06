@@ -2,7 +2,8 @@
 \begin{theglossary}\glossaryheader
 \glsgroupheading{C}\relax \glsresetentrylist %
 \glossentry{cnn}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{ii}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{ii}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{2}}}\glsgroupskip
 \glsgroupheading{M}\relax \glsresetentrylist %
 \glossentry{mae}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{ii}}}%

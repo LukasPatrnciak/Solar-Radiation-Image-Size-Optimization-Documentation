@@ -2,13 +2,13 @@ Táto práca sa zaoberá návrhom a optimalizáciou konvolučných neurónových
 na základe obrazových dát oblohy. Hlavným cieľom je analyzovať vplyv rozmerov vstupných obrázkov na presnosť regresného 
 modelu a identifikovať optimálnu konfiguráciu vstupných dát pre rôzne architektúry vlastných CNN modelov.
 
-V rámci práce boli navrhnuté tri architektúry konvolučných neurónových sietí s rôznou komplexnosťou.
+V rámci práce boli navrhnuté tri architektúry konvolučných neurónových sietí s rôznou zložitosťou.
  Pre každú architektúru boli systematicky testované rôzne rozmery vstupných obrázkov spolu s kombináciami hyperparametrov, 
- ako sú rýchlosť učenia, veľkosť dávky, dropout a počet neurónov v plne prepojenej vrstve.
+ ako sú rýchlosť učenia, veľkosť spracovanej dávky (batchu), dropout a počet neurónov v plne prepojenej vrstve.
 
 Modely boli trénované a vyhodnocované pomocou metrík strednej absolútnej chyby (\acrshort{mae}), strednej 
 kvadratickej chyby (\acrshort{mse}) a 
-koreňovej strednej kvadratickej chyby (\acrshort{rmse}). Súčasne bol analyzovaný čas trénovania a počet potrebných epoch, čím sa 
+odmocniny zo strednej kvadratickej chyby (\acrshort{rmse}). Súčasne bol analyzovaný čas trénovania a počet potrebných epoch, čím sa 
 zohľadnila aj výpočtová náročnosť jednotlivých konfigurácií.
 
 Výsledky ukazujú, že vhodná voľba rozmeru vstupných obrázkov má významný vplyv na presnosť modelu aj jeho výpočtovú 

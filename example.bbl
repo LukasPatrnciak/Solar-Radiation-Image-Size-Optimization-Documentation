@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
+% $ biblatex bbl format version 3.3 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -18,8 +18,187 @@
 
 
 \refsection{0}
-  \datalist[entry]{none/global//global/global}
-    \entry{learningPython}{book}{}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{deepLearning}{book}{}{}
+      \name{author}{3}{}{%
+        {{hash=5d2585c11210cf1d4512e6e0a03ec315}{%
+           family={Goodfellow},
+           familyi={G\bibinitperiod},
+           given={Ian},
+           giveni={I\bibinitperiod}}}%
+        {{hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=ccec1ccd2e1aa86960eb2e872c6b7020}{%
+           family={Courville},
+           familyi={C\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge, Massachusetts}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{3ae53fe582e8a815b118d26947eaa326}
+      \strng{fullhash}{3ae53fe582e8a815b118d26947eaa326}
+      \strng{fullhashraw}{3ae53fe582e8a815b118d26947eaa326}
+      \strng{bibnamehash}{3ae53fe582e8a815b118d26947eaa326}
+      \strng{authorbibnamehash}{3ae53fe582e8a815b118d26947eaa326}
+      \strng{authornamehash}{3ae53fe582e8a815b118d26947eaa326}
+      \strng{authorfullhash}{3ae53fe582e8a815b118d26947eaa326}
+      \strng{authorfullhashraw}{3ae53fe582e8a815b118d26947eaa326}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780262035613}
+      \field{title}{Deep Learning}
+      \field{year}{2016}
+    \endentry
+    \entry{adam}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=b6fbd171848aad4edf3925543f1f1522}{%
+           family={Kingma},
+           familyi={K\bibinitperiod},
+           given={Diederik\bibnamedelima P.},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=8aa66e8231cc2fdbe67aa4f18ca970c6}{%
+           family={Ba},
+           familyi={B\bibinitperiod},
+           given={Jimmy},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{fullhash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{fullhashraw}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{bibnamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorbibnamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authornamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorfullhash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorfullhashraw}{a09df9f123146b8e2c7f1134c9496932}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1412.6980}
+      \field{title}{Adam: A Method for Stochastic Optimization}
+      \field{year}{2014}
+    \endentry
+    \entry{globalPooling}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=d2827b813d1d73df44360201e3296bea}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Min},
+           giveni={M\bibinitperiod}}}%
+        {{hash=8b8805250fb5a57cfbae360547a18706}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Qiang},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=7a7a92b64300d6c39c3ae492b9ded385}{%
+           family={Yan},
+           familyi={Y\bibinitperiod},
+           given={Shuicheng},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{e1066eda6080c3fe3aab9eb7d6746493}
+      \strng{fullhash}{e1066eda6080c3fe3aab9eb7d6746493}
+      \strng{fullhashraw}{e1066eda6080c3fe3aab9eb7d6746493}
+      \strng{bibnamehash}{e1066eda6080c3fe3aab9eb7d6746493}
+      \strng{authorbibnamehash}{e1066eda6080c3fe3aab9eb7d6746493}
+      \strng{authornamehash}{e1066eda6080c3fe3aab9eb7d6746493}
+      \strng{authorfullhash}{e1066eda6080c3fe3aab9eb7d6746493}
+      \strng{authorfullhashraw}{e1066eda6080c3fe3aab9eb7d6746493}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1312.4400}
+      \field{title}{Network in Network}
+      \field{year}{2013}
+    \endentry
+    \entry{dropout}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=6a147afa4569ce6cf23c0436e65d8486}{%
+           family={Srivastava},
+           familyi={S\bibinitperiod},
+           given={Nitish},
+           giveni={N\bibinitperiod}}}%
+        {{hash=9a8750ccdb2a4cf14d2655face1ce016}{%
+           family={Hinton},
+           familyi={H\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod}}}%
+        {{hash=c5e3a676e2ac1164b3afcd539c131fc9}{%
+           family={Krizhevsky},
+           familyi={K\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8d569d1d5b8b5a7836017a98b430f959}{%
+           family={Sutskever},
+           familyi={S\bibinitperiod},
+           given={Ilya},
+           giveni={I\bibinitperiod}}}%
+        {{hash=bd2be300d445e9f6db7808f9533e66cb}{%
+           family={Salakhutdinov},
+           familyi={S\bibinitperiod},
+           given={Ruslan},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{2850768171a28ccacd146c300f66f57d}
+      \strng{fullhash}{2850768171a28ccacd146c300f66f57d}
+      \strng{fullhashraw}{2850768171a28ccacd146c300f66f57d}
+      \strng{bibnamehash}{2850768171a28ccacd146c300f66f57d}
+      \strng{authorbibnamehash}{2850768171a28ccacd146c300f66f57d}
+      \strng{authornamehash}{2850768171a28ccacd146c300f66f57d}
+      \strng{authorfullhash}{2850768171a28ccacd146c300f66f57d}
+      \strng{authorfullhashraw}{2850768171a28ccacd146c300f66f57d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Machine Learning Research}
+      \field{title}{Dropout: A Simple Way to Prevent Neural Networks from Overfitting}
+      \field{volume}{15}
+      \field{year}{2014}
+      \field{pages}{1929\bibrangedash 1958}
+      \range{pages}{30}
+    \endentry
+    \entry{batchNormalization}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=5543e82359e26b035efc009cb3efff9d}{%
+           family={Ioffe},
+           familyi={I\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ed568d9c3bb059e6bf22899fbf170f86}{%
+           family={Szegedy},
+           familyi={S\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \strng{fullhash}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \strng{fullhashraw}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \strng{bibnamehash}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \strng{authorbibnamehash}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \strng{authornamehash}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \strng{authorfullhash}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \strng{authorfullhashraw}{7e8dee717d54c2984b1c6bd3f3c0561f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the 32nd International Conference on Machine Learning}
+      \field{title}{Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift}
+      \field{year}{2015}
+    \endentry
+    \entry{learningPython}{book}{}{}
       \name{author}{1}{}{%
         {{hash=f9b161dc8eaf25ea05f8bac50ac9596d}{%
            family={Lutz},
@@ -35,10 +214,12 @@
       }
       \strng{namehash}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \strng{fullhash}{f9b161dc8eaf25ea05f8bac50ac9596d}
+      \strng{fullhashraw}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \strng{bibnamehash}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \strng{authorbibnamehash}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \strng{authornamehash}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \strng{authorfullhash}{f9b161dc8eaf25ea05f8bac50ac9596d}
+      \strng{authorfullhashraw}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
