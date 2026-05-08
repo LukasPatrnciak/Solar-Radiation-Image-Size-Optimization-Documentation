@@ -10,6 +10,8 @@
 \glossentry{mse}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{ii}}}\glsgroupskip
 \glsgroupheading{R}\relax \glsresetentrylist %
+\glossentry{relu}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{2}}}%
 \glossentry{rmse}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{ii}}}%
 \end{theglossary}\glossarypostamble

@@ -59,35 +59,6 @@
       \field{title}{Deep Learning}
       \field{year}{2016}
     \endentry
-    \entry{adam}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=b6fbd171848aad4edf3925543f1f1522}{%
-           family={Kingma},
-           familyi={K\bibinitperiod},
-           given={Diederik\bibnamedelima P.},
-           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
-        {{hash=8aa66e8231cc2fdbe67aa4f18ca970c6}{%
-           family={Ba},
-           familyi={B\bibinitperiod},
-           given={Jimmy},
-           giveni={J\bibinitperiod}}}%
-      }
-      \strng{namehash}{a09df9f123146b8e2c7f1134c9496932}
-      \strng{fullhash}{a09df9f123146b8e2c7f1134c9496932}
-      \strng{fullhashraw}{a09df9f123146b8e2c7f1134c9496932}
-      \strng{bibnamehash}{a09df9f123146b8e2c7f1134c9496932}
-      \strng{authorbibnamehash}{a09df9f123146b8e2c7f1134c9496932}
-      \strng{authornamehash}{a09df9f123146b8e2c7f1134c9496932}
-      \strng{authorfullhash}{a09df9f123146b8e2c7f1134c9496932}
-      \strng{authorfullhashraw}{a09df9f123146b8e2c7f1134c9496932}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1412.6980}
-      \field{title}{Adam: A Method for Stochastic Optimization}
-      \field{year}{2014}
-    \endentry
     \entry{globalPooling}{article}{}{}
       \name{author}{3}{}{%
         {{hash=d2827b813d1d73df44360201e3296bea}{%
@@ -198,6 +169,35 @@
       \field{title}{Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift}
       \field{year}{2015}
     \endentry
+    \entry{adam}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=b6fbd171848aad4edf3925543f1f1522}{%
+           family={Kingma},
+           familyi={K\bibinitperiod},
+           given={Diederik\bibnamedelima P.},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=8aa66e8231cc2fdbe67aa4f18ca970c6}{%
+           family={Ba},
+           familyi={B\bibinitperiod},
+           given={Jimmy},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{fullhash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{fullhashraw}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{bibnamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorbibnamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authornamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorfullhash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorfullhashraw}{a09df9f123146b8e2c7f1134c9496932}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1412.6980}
+      \field{title}{Adam: A Method for Stochastic Optimization}
+      \field{year}{2014}
+    \endentry
     \entry{learningPython}{book}{}{}
       \name{author}{1}{}{%
         {{hash=f9b161dc8eaf25ea05f8bac50ac9596d}{%
@@ -220,8 +220,8 @@
       \strng{authornamehash}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \strng{authorfullhash}{f9b161dc8eaf25ea05f8bac50ac9596d}
       \strng{authorfullhashraw}{f9b161dc8eaf25ea05f8bac50ac9596d}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{Fourth Edition}

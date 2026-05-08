@@ -363,7 +363,7 @@
                 %\def\@tempCisloStud{\v{C}\a'islo \v{s}tudijn\a'eho odboru:}
                 \def\@tempNazovStud{N\a'azov \v{s}tudijn\a'eho odboru:}
                 \def\@tempSkolPracov{\v{S}koliace pracovisko:}
-                \def\@tempVedPrace{Ved\a'uci z\a'avere\v{c}nej pr\a'ace:}
+                \def\@tempVedPrace{Ved\a'uci pr\a'ace:}
                 \def\@tempKonzultanta{Konzultant:}
                 \ifthenelse{\boolean{isThesis}}
                 {}{
@@ -485,7 +485,7 @@
         \begin{minipage}[t]{21.5em}
             \printNazov
         \end{minipage} \\
-        Ved\a'uci z\a'avere\v{c}nej pr\a'ace:\> \printVeduciZaverecnejPrace \\\IfEqCase*{\@tempKonzultant}{
+        Ved\a'uci pr\a'ace:\> \printVeduciZaverecnejPrace \\\IfEqCase*{\@tempKonzultant}{
             {0}{}
             {1}{Konzultant:\>\printKonzultant \\}
                 }[]Miesto a rok predlo\v{z}enia pr\a'ace:\>\printMesto \ \@rok
