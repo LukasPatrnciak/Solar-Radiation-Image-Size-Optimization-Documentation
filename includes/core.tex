@@ -156,6 +156,8 @@ najmä počtom konvolučných vrstiev, počtom filtrov a celkovou zložitosťou 
 architektúr bolo overiť, ako vplýva veľkosť a hĺbka neurónovej siete na presnosť predikcie intenzity slnečného
 žiarenia pri rôznych rozmeroch vstupných obrázkov.
 
+Vstupom do všetkých archytektúr boli RGB obrázky oblohy s rozmermi H x W x 3, kde H a W predstavujú výšku a šírku vstupných obrázkov ktorú sme v rámci testovania menili, použili sme velkosti 64x64, 96x96, 128x128, 160x160, 224x224 pixelov.   
+
 Navrhnuté architektúry boli označené ako \textit{small}, \textit{medium} a \textit{large}. Všetky modely 
 boli určené na riešenie regresnej úlohy, preto ich výstupná vrstva obsahovala jeden neurón, ktorý 
 reprezentoval predikovanú hodnotu cieľovej premennej \textit{Irradiance}.
@@ -176,12 +178,15 @@ reprezentoval predikovanú hodnotu cieľovej premennej \textit{Irradiance}.
 \end{itemize}
 Prehľad architektúr týchto navrhnutých CNN je možné vidieť v tabuľke \ref{tab:cnn_architectures}.
 Spoločným prvkom všetkých navrhnutých architektúr bolo použitie aktivačnej funkcie ReLU, 
-normalizačných vrstiev Batch Normalization, pooling vrstiev a finálnej vrstvy Global Average Pooling.
-
+normalizačných vrstiev Batch Normalization, pooling vrstiev a finálnej vrstvy Global Average Pooling. 
+Hlavnímy výhodou aktovačnej funkcie ReLU, ktorá patrí medzi najčastejšie používanné aktivačné funkcie, je jej jednoduchá implementácia a výpočtová nenárčnosť.
+\begin{equation*}
+	ReLU: f(x) = max(0, x)
+\end{equation*}
 Po extrakcii príznakov nasledovala plne prepojená vrstva, dropout vrstva a výstupná vrstva s jedným neurónom. Všetky navrhnuté architektúry využívajú jednotlivé vrstvy v nasledovnom poradí:
 \begin{itemize}
     \item \textbf{Conv2D vrstva:} 
-    prvá konvolučná vrstva slúži na extrakciu základných príznakov z obrazových dát, ako sú hrany, textúry alebo jednoduché tvary. Konvolučné filtre sa počas tréningu automaticky prispôsobujú charakteru vstupných dát.
+    prvá konvolučná vrstva slúži na extrakciu základných príznakov z obrazových dát, ako sú hrany, textúry alebo jednoduché tvary. Konvolučné filtre sa počas tréningu automaticky prispôsobujú charakteru vstupných dát. Vo všetkých konvolučných vrstvách bola použitá velkosť filtra 3x3. 
 
     \item \textbf{Batch Normalization vrstva:} 
     za konvolučnou vrstvou nasleduje normalizačná vrstva Batch Normalization, ktorá zabezpečuje normalizáciu aktivácií jednotlivých vrstiev počas tréningu. Použitie tejto vrstvy prispieva k stabilnejšiemu a rýchlejšiemu učeniu modelu a znižuje citlivosť na inicializáciu parametrov.
@@ -190,7 +195,7 @@ Po extrakcii príznakov nasledovala plne prepojená vrstva, dropout vrstva a vý
     druhá konvolučná vrstva umožňuje modelu extrahovať zložitejšie príznaky ešte pred redukciou priestorových rozmerov obrazu. Kombinácia viacerých konvolučných vrstiev za sebou zvyšuje schopnosť modelu zachytiť zložitejšie obrazové charakteristiky.
 
     \item \textbf{MaxPooling2D vrstva:} 
-    pooling vrstva slúži na zmenšenie priestorových rozmerov príznakových máp. Tým dochádza k zníženiu výpočtovej náročnosti modelu a zároveň k zachovaniu najvýznamnejších príznakov obrazu.
+    pooling vrstva využíva pooling okno s rozmrom 2x2 a slúži na zmenšenie priestorových rozmerov príznakových máp. Tým dochádza k zníženiu výpočtovej náročnosti modelu a zároveň k zachovaniu najvýznamnejších príznakov obrazu.
 
     \item \textbf{Dropout vrstva:} 
     po pooling vrstve nasledovala regularizačná vrstva Dropout, ktorá počas tréningu náhodne deaktivuje časť neurónov. Cieľom tejto vrstvy je zníženie rizika pretrénovania modelu a zlepšenie generalizačných schopností neurónovej siete.
@@ -305,8 +310,8 @@ vstupných obrázkov pre jednotlivé architektúry konvolučných neurónových 
 
 \section{Implementácia}
 Na implementáciu navrhnutého riešenia bol použitý programovací jazyk Python \cite{learningPython} 
-spolu s viacerými externými knižnicami určenými na spracovanie dát, vizualizáciu a tvorbu 
-neurónových sietí.
+spolu s viacerými externými knižnicami určenými na spracovanie dát a ich vizualizáciu a tvorbu trénovanie 
+konvolučných neurónových sietí.
 Pri implementácii boli použité nasledovné knižnice:
 
 \begin{itemize}[nolistsep, noitemsep]
@@ -316,7 +321,7 @@ Pri implementácii boli použité nasledovné knižnice:
     
     \item \textbf{time} -- meranie času a sledovanie trvania operácií,
     
-    \item \textbf{random} -- generovanie náhodných hodnôt,
+    \item \textbf{random} -- táto funkcia slúži na generovanie náhodných hodnôt ale pre zachovanie rovnakých podmienok pri trénovaný všetkých modelov a reprodukavetelnosť výsledkov je nastavená premenná RAND\_ST na fixnú hodnotu čím sa zebezpečuje že náhodne generované čísla budu pri roznych behoch programu rovnaké.
     
     \item \textbf{pandas} -- spracovanie a analýza tabuľkových dát,
     
@@ -326,21 +331,125 @@ Pri implementácii boli použité nasledovné knižnice:
     
     \item \textbf{tensorflow} -- framework určený na implementáciu a tréning neurónových sietí.
 \end{itemize}
-
+Implementácia sa skladala z viacerých časti ktoré slúžili na načítanie a kontrolu datasetu, predspracovanie vstupných dát, vytvorenie modelu, automatizáciu trénovania a vyhodnotenie výsledkov a generovanei grafov. 
 Na implementáciu konvolučnej neurónovej siete bolo využité rozhranie Keras, ktoré je súčasťou frameworku TensorFlow. Použitý bol modul \textbf{keras.Input} určený na definovanie vstupnej vrstvy neurónovej siete, modul \textbf{tensorflow.keras.layers} obsahujúci konvolučné, pooling a plne prepojené vrstvy a modul \textbf{tensorflow.keras.models} určený na vytváranie architektúr neurónových sietí.
 
 Na optimalizáciu procesu učenia bol použitý algoritmus \textbf{keras.Input}, ktorý sa nachádza v module \textbf{tensorflow.keras.optimizers.Adam}. Súčasťou implementácie boli aj callback mechanizmy z modulu \textbf{tensorflow.keras.callbacks}, konkrétne:
 \begin{itemize}[nolistsep, noitemsep]
-    \item \textbf{EarlyStopping} -- predčasné ukončenie tréningu pri stagnácii modelu,
+    \item \textbf{EarlyStopping} -- tento mechanizmus slúži na predčasné ukončenie tréningu modelu pri stagnácii validačnej chyby modelu, tento mechanizmus kontroluje zmenu vo validačnej chybe na konci každej trénovacej epochy. 
     
-    \item \textbf{ModelCheckpoint} -- automatické ukladanie najlepšieho modelu počas tréningu,
-    
-    \item \textbf{ReduceLROnPlateau} -- dynamická úprava rýchlosti učenia počas tréningu.
+    \item \textbf{ModelCheckpoint} -- toto je mechanizmus implementovaný na automatické ukladanie najlepšieho modelu počas tréningu, keď program dokončí trénovanie modelu a je prpravený trénovať ďalší model, tento mechanizmus ho automaticky uloži na zvolené miesto .    
+    \item \textbf{ReduceLROnPlateau} -- táto funkcia dynamická úprava rýchlosti učenia počas tréningu ak vyhodnotí zhoršenie konvergencie modelu.
 \end{itemize}
 
-Pre spracovanie vstupných obrázkoch obsahujúceho obrázky bol použitý modul \textbf{tensorflow.keras.preprocessing.image}, konkrétne funkcie:
+Pre spracovanie vstupných obrázkov bol použitý modul \textbf{tensorflow.keras.preprocessing.image}, konkrétne funkcie:
 \begin{itemize}[nolistsep, noitemsep]
     \item \textbf{load\_img} -- načítanie obrazových dát,
     
     \item \textbf{img\_to\_array} -- prevod obrázkov do numerickej reprezentácie vo forme poľa.
 \end{itemize}
+
+\subsection{predspracovanie dát}
+Na načítavanie a úpravu dát pred použitým na trénovanie každý vstupný obrázok prešiel funkciami \textbf{load\_and\_preprocess\_image()} a \textbf{create\_tensorflow\_dataset()}. V týchto funkciách boly vstupy postupne načítané, transformované na velkosť podla požiadaviek aktuálneho testu a následne boly prevedené na numerické pole ktorého hodnota bola normalizovaná doo intervalu 0 až 1. 3tandardiyovaná bola aj hodnota svieťivosti ktorú sledujeme pomocou priemeru a smerodajnej odchylky. 
+\begin{equation*}
+	{x}_{norm} = \frac{x - \mu}{\sigma}
+\end{equation*}
+Kde $\mu$ je priemerná hodnota a $\sigma$ je smerodajná odchylka. Táto normalizácia zlepší stabilitu a učenai a rýchlosť konvergencie počas trénovania. 
+
+\section{Výsledky}
+
+Proces testovania je automatizovaný a po dokončený všetkých modelov sú k dospozícii výsledky ich hodnotenia a grafy vyhodnocujúce vybrané sledované parametre. 
+
+Parametre ktoré sa o natrénovaných modeloch ukladaly:
+\begin{itemize}
+	\item \textbf{training\_time\_seconds} -- celkový čas potrebný na natrénovanie modelu v sekundách. 
+
+	\item \textbf{train\_mae\_norm / val\_mae\_norm / test\_mae\_norm} -- (Mean Absolute Error) je priemerná absolútna chyba. Hovorí o tom, o koľko sa v priemere model mýli v normalizovaných jednotkách.
+
+	\item \textbf{train\_loss\_norm / val\_loss\_norm / test\_loss\_norm} -- snažíme sa minimalizovať, porovnanie straty napovedá či nedochádza k overfittingu, ak trénovacia straa klesá ale validačná začne stúpať
+
+	\item \textbf{val\_mse\_original / test\_mse\_original} -- (Mean Squared Error)
+	\item \textbf{val\_mae\_original / test\_mae\_origina} -- (Mean Absolute Error) -- model sa v priemere mýli o X 
+	\item \textbf{val\_rmse\_original / test\_rmse\_original} -- (Root Mean Squared Error) 
+
+\end{itemize}
+
+Cielom je nájsť najnožšie test\_mae\_original a paramtre s ním súvisiace. Ak je RMSE oveľa vyššie ako MAE, model robí občasné, ale velmi veľké chyby
+train\_loss\_norm a val\_loss\_norm -- ak velký rozdiel ide o overfitting  -- model zahod 
+
+%Model s najmenším test\_mea_origin (28,39548683 ) je model large, image size 64x64 , learning rate 0.001, danse units, epochs trained 42 a 
+
+Na vyhodnocovanie vplyvu jednotlivých parametrov na výsledok a čas trénovanie budeme používať koreláciu. 
+\begin{table}[ht]
+\begin{tabular}{ | c |  c  c c c  c |}
+\hline
+				& čas trénovania 	&  epoch trained 	& MSE 				&  RMSE 		& MEA  \\
+\hline
+velkosť obrázkov &  0,5036 		&  -0,0985		& 0,3508	 		& 0,3519 		& 0,3802 \\
+learning rate 		&  0,1644  		&  0,1644		& -0,2693 			& -0,2929 		& -0,3211\\
+dropout rate 		 &  0,0503  	&  0,0573		& 0,1383	 		& 0,1342 		& 0,1420 \\
+danse units		 &  0,0637	  	&  0,0841		& -0,0939	 		& -0,0813 		& -0,0831 \\
+\hline
+\end{tabular}
+\end{table}
+ Z tabulky vyplíva že jeniný parameter ktorý má významný vpliv na čas trénovania modelu je velksť vstupných obrázkov, tento parameter má tiež najväčší vpliv na všetky ostatné sledované paramete. 
+\begin{table}[h]
+\begin{tabular}{ | c |  c  c c c  c |}
+\hline
+	SMALL		& čas trénovania &  epoch trained & MSE &  RMSE  & MEA  \\
+\hline
+velkosť obrázkov 	& 0,6507 & -0,1119 & 0,0634 & 0,1884 & 0,1884\\
+learning rate 		&0,0977  & -0,0344 & -0,1501 & -0,2491 & -0,2491\\
+dropout rate 		& -0,0525 & -0,0306 & 0,0010 & -0,0140 & -0,0140\\
+danse units 		&  -0,0518 & -0,0229 & 0,1054 & 0,0277 & 0,0277\\
+\hline
+\end{tabular}
+\caption{tabuĺka: Tabuľka závyslostí archytektúry Small}
+\end{table}
+
+\begin{table}[h]
+\label{tabuĺka: Tabuľka závyslostí archytektúry Medium}
+\begin{tabular}{ | c |  c  c c c  c |}
+\hline
+	MEDIUM		& čas trénovania &  epoch trained & MSE &  RMSE  & MEA  \\
+\hline
+velkosť obrázkov & 0,8279 & 0,3614 & 0,3503 & 0,3777 & 0,4307 \\
+learning rate & 0,1750 & 0,3246 & -0,4008 & -0,3976 & -0,3800 \\
+dropout rate & -0,0910 & -0,0710 & 0,2622 & 0,2932 & 0,2937 \\
+danse units & -0,0346 & -0,0913& -0,1121 & -0,1105  & -0,0892 \\
+\hline
+\end{tabular}
+\caption{tabuĺka: Tabuľka závyslostí archytektúry Medium}
+\end{table}
+
+\begin{table}[h]
+\label{tabuĺka: Tabuľka závyslostí archytektúry Large}
+\begin{tabular}{ | c |  c  c c c  c |}
+\hline
+	LARGE		& čas trénovania &  epoch trained & MSE &  RMSE  & MEA  \\
+\hline
+velkosť obrázkov & -0,3020 & 0,3614 & 0,5663 & 0,5513 & 0,5531\\
+learning rate & 0,2041& 0,3828 & -0,2729 & -0,3534 & -0,3995 \\
+dropout rate & 0,1606 & 0,2167 & 0,1234 & 0,1037  & 0,1411 \\
+danse units & 0,1705& 0,1842 & -0,1889 & -0,1604 & -0,1662 \\
+\hline
+\end{tabular}
+\caption{tabuĺka: Tabuľka závyslostí archytektúry Large}
+\end{table}
+
+Z tabuliek môžeme vidieť že pri použití malej neurónovej siete má na presnosť natrénovaného modelu aj na čas trénovania največí vpliv velkosť vstupných obrázkov. Tento fakt je konzistentný pri všetkých velkostiach sietí ale pri architektúre s označením large je korelácia velkosti obrázkov a času záporná. \ref{tabuľka: Tabuľka závyslostí archytektúry Small}
+
+\begin{figure}[ht]
+\includegraphics[width=15cm]{"img/zavyslost_t_img_MEA.png"}
+\end{figure}
+
+Ako najlepší model z našich testov vyšiel Model Large s najmenšou velkostou vstupných obrázkov 64x64, learning rate 0.001, dropout rate 0.2, dense unit 128 natrénovaný na 42 epochách za 203.4643 sekúnd, priemerná doba trénovania je 282.09974s a medián doby trénovania je 190.6278s. Priemerná obsolútna odchylka (MAE) tothoto modelu je 28.3954 zatial čo medián pre túto hodnotu je 85.0767.  
+
+\begin{figure}[ht]
+\includegraphics[width=15cm]{"img/size_RMSE.png"}
+\end{figure}
+Z obrázku si môžeme všymnuť že zo zväčujúcim sa rozlíšením vstupného obrázu narastá RMSE, z čoho môžeme usúdiť že vstupné dáta ktpré boly zmenšené na menšie rozmery sú lepším vstupom ako dáta v plnom albo väčšom rozlíšený a to bez ohladu na použitú archytektúru alebo iné parametre.  
+
+
+
+
