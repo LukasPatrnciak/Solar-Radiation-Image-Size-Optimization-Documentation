@@ -1,14 +1,7 @@
-Cieľom tejto semestrálnej práce bolo oboznámiť sa so základnými princípmi konvolučných 
-neurónových sietí a implementovať model určený na spracovanie obrazových dát a určenie 
-optimálnych rozmerov vstupných obrázkov, ktoré boli vyhodnotené na základe príslušných metrík.
-V rámci práce boli teoreticky popísané základné časti architektúry konvolučných neurónových
-sietí, ako sú konvolučné vrstvy, pooling vrstvy, aktivačné funkcie a regularizačné techniky.
+Cieľom práce bolo analyzovať vplyv rozmerov vstupných obrázkov na presnosť predikcie intenzity slnečného žiarenia pomocou konvolučných neurónových sietí. V rámci práce boli navrhnuté a implementované tri architektúry CNN označené ako Small, Medium a Large, pričom experimenty boli realizované na rôznych veľkostiach vstupných obrazových dát a pri rôznych nastaveniach hyperparametrov.
 
-V implementačnej časti bola realizovaná implementácia modelu pomocou frameworku TensorFlow a 
-rozhrania Keras. Navrhnutá architektúra obsahovala konvolučné vrstvy, pooling vrstvy, 
-normalizačné mechanizmy a plne prepojené vrstvy určené na spracovanie vstupných obrazových dát.
-
-Súčasťou práce bolo aj vyhodnotenie rôznych rozmerov vstupných obrázkov a 
-ich vplyvu na výslednú presnosť modelu a čas tréningu neurónovej siete. Na základe 
-realizovaných experimentov s rôznymi hyperparametrami konvolučnej siete bolo možné pozorovať vplyv veľkosti vstupných dát na efektivitu 
-procesu učenia a kvalitu výsledného modelu.
+Výsledky experimentov ukázali, že veľkosť vstupných obrázkov mala najvýraznejší vplyv na presnosť modelov aj na čas tréningu.  Vo väčšine experimentov dosahovali lepšie výsledky modely využívajúce menšie rozmery vstupných obrázkov, predovšetkým 64x64 pixelov.  So zvyšovaním rozlíšenia nrastala MAE aj RMSE a predlžoval sa času tréningu modelov.
+Najlepší výsledok dosiahla architektúra \textbf{Large CNN} pri veľkosti vstupných obrázkov 64x64, hodnote learning rate 0.001, dropout rate 0.2 a 128 neurónoch v Dense vrstve. Tento model dosiahol hodnotu testovacej MAE 28.40 a RMSE 39.02.  Výsledky zároveň ukázali, že vyššia hodnota learning rate 0.001 bola vo väčšine prípadov vhodnejšia ako hodnota 0.0001.
+Pri porovnaní priemerných výsledkov jednotlivých architektúr dosiahla najlepšie hodnoty architektúra \textbf{Small CNN}, ktorá mala stabilnejšie výsledky v rôznymi konfiguráciami a nižšiu výpočtovú náročnosť. 
+Naopak architektúra Large CNN dosahovala veľmi dobré výsledky iba pri vhodne zvolených hyperparametroch a bola citlivejšia na zmenu nastavení.
+Experimenty zároveň ukázali, že použitie väčších rozlíšení vstupných obrázkov nie je pri predikcii intenzity slnečného žiarenia výhodné. Menšie rozmery pravdepodobne zachovávajú najdôležitejšie charakteristiky, zatiaľ čo väčšie rozlíšenia pridávajú viac detailov a šumu, ktoré zhoršujú schopnosť modelu generalizovať.

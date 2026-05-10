@@ -127,7 +127,15 @@ dataset/
 
 
 Priečinok \textbf{images} obsahuje vstupné obrazové dáta vo formáte PNG. Ku
-každému obrázku je v príslušnom CSV súbore uvedený jeho názov a hodnota cieľovej premennej. 
+každému obrázku je v príslušnom CSV súbore uvedený jeho názov a hodnota cieľovej premennej. Príklad tadasetu je na \ref{fig:dataset_exp} kde môžeme vydieť nádoný výber z testovacieho datasetu ktorý sa zobrazuje na začiatku testovania. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm]{"img/sample_images_test.png"}
+\caption{Príklad trénovacieho datasetu}
+\label{fig:dataset_exp}
+\end{figure}
+
 V tejto práci boli použité nasledovné stĺpce:
 \begin{itemize}
     \item \textbf{PictureName:} obsahuje názov obrazového súboru a slúži na priradenie jednotlivých záznamov k príslušným obrazovým dátam,
@@ -140,11 +148,11 @@ predikcie intenzity slnečného žiarenia výhradne na základe obrazových vstu
 
 Pri načítaní dát sa ku každému záznamu v CSV súbore priradí úplná cesta k príslušnému obrázku. 
 Záznamy, pri ktorých chýba cieľová hodnota alebo príslušný obrazový súbor, sú z datasetu odstránené.
- Tým sa zabezpečí, že model pracuje iba s platnými dátami.
+ Tým sa zabezpečí, že model pracuje iba s platnými dátami. 
 
 Trénovacia množina slúži na učenie modelu, validačná množina sa používa na sledovanie priebehu učenia a 
 výber najlepšej konfigurácie modelu. Testovacia množina je použitá až na záverečné vyhodnotenie natrénovaného 
-modelu na dátach, ktoré neboli použité počas tréningu.
+modelu na dátach, ktoré neboli použité počas tréningu. 
 
 
 
@@ -156,7 +164,7 @@ najmä počtom konvolučných vrstiev, počtom filtrov a celkovou zložitosťou 
 architektúr bolo overiť, ako vplýva veľkosť a hĺbka neurónovej siete na presnosť predikcie intenzity slnečného
 žiarenia pri rôznych rozmeroch vstupných obrázkov.
 
-Vstupom do všetkých archytektúr boli RGB obrázky oblohy s rozmermi H x W x 3, kde H a W predstavujú výšku a šírku vstupných obrázkov ktorú sme v rámci testovania menili, použili sme velkosti 64x64, 96x96, 128x128, 160x160, 224x224 pixelov.   
+Vstupom do všetkých architektúr boli RGB obrázky oblohy s rozmermi H x W x 3, kde H a W predstavujú výšku a šírku vstupných obrázkov ktorú sme v rámci testovania menili, použili sme velkosti 64x64, 96x96, 128x128, 160x160, 224x224 pixelov.   
 
 Navrhnuté architektúry boli označené ako \textit{small}, \textit{medium} a \textit{large}. Všetky modely 
 boli určené na riešenie regresnej úlohy, preto ich výstupná vrstva obsahovala jeden neurón, ktorý 
@@ -377,7 +385,7 @@ V konvolučnej vrstve sa využívali filtre o veľkosti 3x3 a aktivačná ReLU f
 
 \subsection{Automatizácia experimentov}
 
-Proces trénovanai modelov a ich vyhodnocovania bol v tejto implementácii automatizovaný a to tak že program postupne testoval rôzne kombinácie architektúr, veľkostí vstupných obrázkov a hyperparametrov. Pre každú kombináciu parametrov a archytektúry bol automaticky:
+Proces trénovanai modelov a ich vyhodnocovania bol v tejto implementácii automatizovaný a to tak že program postupne testoval rôzne kombinácie architektúr, veľkostí vstupných obrázkov a hyperparametrov. Pre každú kombináciu parametrov a architektúry bol automaticky:
 \begin{itemize}[nolistsep, noitemsep]
     \item vytvorený tréningový, validačný a testovací dataset,
     \item inicializovaný model neurónovej siete,
@@ -412,73 +420,112 @@ Celý proces trénovania ako už bolo spomenuté je implementovaný v jednom pyt
 
 \section{Výsledky}
 
-Proces testovania je automatizovaný a po dokončený všetkých modelov sú k dospozícii výsledky ich hodnotenia a grafy vyhodnocujúce vybrané sledované parametre. 
+Proces testovania bol plne automatizovaný. Po dokončení tréningu jednotlivých modelov boli automaticky uložené výsledné metriky, parametre modelov a grafy zobrazujúce priebeh tréningu a vzájomné závislosti medzi sledovanými parametrami. 
+Cieľom experimentálnej časti bolo identifikovať optimálnu kombináciu architektúry CNN, rozmeru vstupných obrázkov a hyperparametrov z hľadiska presnosti predikcie intenzity slnečného žiarenia a zároveň sledovať výpočtovú náročnosť jednotlivých modelov.
 
-Parametre ktoré sa o natrénovaných modeloch ukladaly:
+\subsection{Sledované parametre a metriky}
+Parametre a metriky ktoré sa o natrénovaných modeloch ukladaly počas trénovania:
 \begin{itemize}
-	\item \textbf{training\_time\_seconds} -- celkový čas potrebný na natrénovanie modelu v sekundách. 
-
-	\item \textbf{train\_mae\_norm / val\_mae\_norm / test\_mae\_norm} -- (Mean Absolute Error) je priemerná absolútna chyba. Hovorí o tom, o koľko sa v priemere model mýli v normalizovaných jednotkách.
-
-	\item \textbf{train\_loss\_norm / val\_loss\_norm / test\_loss\_norm} -- snažíme sa minimalizovať, porovnanie straty napovedá či nedochádza k overfittingu, ak trénovacia straa klesá ale validačná začne stúpať
-
-	\item \textbf{val\_mse\_original / test\_mse\_original} -- (Mean Squared Error)
-	\item \textbf{val\_mae\_original / test\_mae\_origina} -- (Mean Absolute Error) -- model sa v priemere mýli o X 
-	\item \textbf{val\_rmse\_original / test\_rmse\_original} -- (Root Mean Squared Error) 
-
+	\item \textbf{training\_time\_seconds} -- celkový čas potrebný na natrénovanie modelu v sekundách
+	\item \textbf{epochs\_trained} -- počet epoch na ktorých bol model trénovaný pred aktiváciou mechanizmu EarlyStop
+	\item \textbf{train\_mae\_norm / val\_mae\_norm / test\_mae\_norm} -- priemerná absolútna chyba v normalizovaných jednotkách
+	\item \textbf{train\_loss\_norm / val\_loss\_norm / test\_loss\_norm} -- hodnota stratovej funkcie MSE počas tréningu, validácie a testovania
+	\item \textbf{val\_mse\_original / test\_mse\_original} -- priemerná kvadratická chyba v pôvodnej mierke \textit{Irradiance}
+	\item \textbf{val\_mae\_original / test\_mae\_original} -- priemerná absolútna chyba v pôvodnej mierke,
+	\item \textbf{val\_rmse\_original / test\_rmse\_original} -- odmocnina z MSE v pôvodných jednotkách \textit{Irradiance}.
 \end{itemize}
 
-Cielom je nájsť najnožšie test\_mae\_original a paramtre s ním súvisiace. Ak je RMSE oveľa vyššie ako MAE, model robí občasné, ale velmi veľké chyby
-train\_loss\_norm a val\_loss\_norm -- ak velký rozdiel ide o overfitting  -- model zahod 
+Hlavným cieľom experimentov bolo minimalizovať hodnotu \textbf{test\_mae\_original}, ktorá predstavuje priemernú absolútnu odchýlku predikcie od reálnych hodnôt intenzity slnečného žiarenia. Pri vyhodnocovaní výsledkov sme sledovaly aj rozdiel medzi hodnotami MAE a RMSE. V prípade, že hodnota RMSE výrazne prevyšovala hodnotu MAE, znamenalo to, že model síce vo väčšine prípadov dosahoval dobré výsledky, avšak pri niektorých vzorkách generoval výrazne väčšie chyby predikcie. Súčasne bol sledovaný rozdiel medzi trénovacou a validačnou stratou. Výrazne nižšia trénovacia chyba pri súčasne vysokej validačnej chybe naznačovala pretrénovanie modelu (\textit{overfitting}).
 
+\subsection{Vplyv hyperparametrov na výsledky}
 %Model s najmenším test\_mea_origin (28,39548683 ) je model large, image size 64x64 , learning rate 0.001, danse units, epochs trained 42 a 
 
-Na vyhodnocovanie vplyvu jednotlivých parametrov na výsledok a čas trénovanie budeme používať koreláciu. 
-\begin{table}[ht]
-\caption{Prehľad navrhnutých architektúr CNN}
-\begin{tabular}{ | c |  c  c c c  c |}
+Na analýzu vplyvu jednotlivých hyperparametrov na výslednú presnosť modelov a čas tréningu bola použitá korelačná analýza. 
+Skúmaný bol vplyv:
+\begin{itemize}
+	\item rozmeru vstupných obrázkov
+	\item hodnoty learning rate
+	\item dropout rate
+	\item počtu neurónov v Dense vrstve
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%
+%
+%		T A B U L K A      A L L
+%
+%
+%%%%%%%%%%%%%%%%%%%%
+Tabuľka \ref{tab:global_corr} zobrazuje koreláciu medzi sledovanými hyperparametrami a výslednými metrikami naprieč všetkými experimentami.
+
+\begin{table}[H]
+\caption{Korelácia hyperparametrov a metrík pre všetky architektúry CNN}
+\label{tab:global_corr}
+\begin{tabular}{ | c | c c c c c |}
 \hline
-				& čas trénovania 	&  epoch trained 	& MSE 				&  RMSE 		& MEA  \\
+					& čas trénovania 	&  epoch trained 	& MSE 			&  RMSE 		& MEA  \\
 \hline
-velkosť obrázkov &  0,5036 		&  -0,0985		& 0,3508	 		& 0,3519 		& 0,3802 \\
-learning rate 		&  0,1644  		&  0,1644		& -0,2693 			& -0,2929 		& -0,3211\\
-dropout rate 		 &  0,0503  	&  0,0573		& 0,1383	 		& 0,1342 		& 0,1420 \\
-danse units		 &  0,0637	  	&  0,0841		& -0,0939	 		& -0,0813 		& -0,0831 \\
+velkosť obrázkov 	&  0,5036 			&  -0,0985			& 0,3508	 	& 0,3519 		& 0,3802 \\
+learning rate 		&  0,1644  			&  0,1644			& -0,2693 		& -0,2929 		& -0,3211\\
+dropout rate 		&  0,0503  			&  0,0573			& 0,1383		& 0,1342 		& 0,1420 \\
+danse units			&  0,0637	  		&  0,0841			& -0,0939		& -0,0813 		& -0,0831 \\
 \hline
 \end{tabular}
-\end{table}
- Z tabulky vyplíva že jeniný parameter ktorý má významný vpliv na čas trénovania modelu je velksť vstupných obrázkov, tento parameter má tiež najväčší vpliv na všetky ostatné sledované paramete. 
-\begin{table}[h]
-\begin{tabular}{ | c |  c  c c c  c |}
-\hline
-	SMALL		& čas trénovania &  epoch trained & MSE &  RMSE  & MEA  \\
-\hline
-velkosť obrázkov 	& 0,6507 & -0,1119 & 0,0634 & 0,1884 & 0,1884\\
-learning rate 		&0,0977  & -0,0344 & -0,1501 & -0,2491 & -0,2491\\
-dropout rate 		& -0,0525 & -0,0306 & 0,0010 & -0,0140 & -0,0140\\
-danse units 		&  -0,0518 & -0,0229 & 0,1054 & 0,0277 & 0,0277\\
-\hline
-\end{tabular}
-\caption{tabuĺka: Tabuľka závyslostí archytektúry Small}
 \end{table}
 
+Z tabuľky je možné pozorovať, že najvýraznejší vplyv na čas tréningu mala veľkosť vstupných obrázkov.  Rast rozlíšenia vstupných dát zvyšoval výpočtovú náročnosť modelov a zároveň mal negatívny vplyv aj na výsledné hodnoty MSE, RMSE a MAE. Naopak vyššia hodnota \textit{learning rate} mala mierne pozitívny vplyv na výsledné chyby modelov, čo naznačuje, že pri použitých architektúrach bolo učenie s hodnotou $0.001$ efektívnejšie ako s hodnotou $0.0001$. Dropout rate a počet neurónov v Dense vrstve mali v porovnaní s veľkosťou obrázkov výrazne menší vplyv na výsledné metriky.
+
+\subsection{Vyhodnotenie jednotlivých architektúr}
+\subsubsection{Small CNN }
+%%%%%%%%%%%%%%%%%%%%
+%
+%
+%		T A B U L K A      S M A L L
+%
+%
+%%%%%%%%%%%%%%%%%%%%
 \begin{table}[h]
-\label{tabuĺka: Tabuľka závyslostí archytektúry Medium}
+\caption{Korelácia hyperparametrov a metrík pre architektúru Small CNN}
+\label{tab:small_corr}
 \begin{tabular}{ | c |  c  c c c  c |}
 \hline
-	MEDIUM		& čas trénovania &  epoch trained & MSE &  RMSE  & MEA  \\
+	SMALL			& čas trénovania &  epoch trained & MSE 		&  RMSE  	& MEA  	\\
 \hline
-velkosť obrázkov & 0,8279 & 0,3614 & 0,3503 & 0,3777 & 0,4307 \\
-learning rate & 0,1750 & 0,3246 & -0,4008 & -0,3976 & -0,3800 \\
-dropout rate & -0,0910 & -0,0710 & 0,2622 & 0,2932 & 0,2937 \\
-danse units & -0,0346 & -0,0913& -0,1121 & -0,1105  & -0,0892 \\
+velkosť obrázkov 	& 0,6507 		& -0,1119 		& 0,0634 	& 0,1884 	& 0,1884\\
+learning rate 		&0,0977  		& -0,0344 		& -0,1501 	& -0,2491 	& -0,2491\\
+dropout rate 		& -0,0525 		& -0,0306 		& 0,0010 	& -0,0140 	& -0,0140\\
+danse units 			&  -0,0518 		& -0,0229 		& 0,1054 	& 0,0277 	& 0,0277\\
 \hline
 \end{tabular}
-\caption{tabuĺka: Tabuľka závyslostí archytektúry Medium}
 \end{table}
 
+Pri architektúre Small CNN bol najvýraznejším faktorom opäť rozmer vstupných obrázkov.  So zvyšujúcim sa rozlíšením výrazne rástol čas tréningu modelu, pričom zároveň dochádzalo aj k vemi jemnému zhoršeniu výsledných metrík. Táto architektúra bola najmenej výpočtovo náročná, avšak v porovnaní so zložitejšími architektúrami dosahovala horšiu presnosť predikcie. 
+
+\subsubsection{architektura medium}
 \begin{table}[h]
-\label{tabuĺka: Tabuľka závyslostí archytektúry Large}
+\caption{Korelácia hyperparametrov a metrík pre architektúru Medium CNN}
+\label{tab:medium_corr}
+\begin{tabular}{ | c |  c  c c c  c |}
+\hline
+	MEDIUM		& čas trénovania &  epoch trained & MSE 		&  RMSE  & MEA  \\
+\hline
+velkosť obrázkov 	& 0,8279 		& 0,3614 		& 0,3503 	& 0,3777 & 0,4307 \\
+learning rate 		& 0,1750 		& 0,3246 		& -0,4008 	& -0,3976 & -0,3800 \\
+dropout rate 		& -0,0910 		& -0,0710 		& 0,2622 	& 0,2932 & 0,2937 \\
+danse units 			& -0,0346 		& -0,0913		& -0,1121 	& -0,1105  & -0,0892 \\
+\hline
+\end{tabular}
+\end{table}
+
+Architektúra Medium CNN vykazovala výraznejšiu závislosť medzi veľkosťou obrázkov a výslednými metrikami než architektúra Small CNN.  Najlepšie výsledky boli opäť dosahované pri menších rozmeroch vstupných obrázkov. Vplyv learning rate bol pri tejto architektúre výraznejší a  vyššia hodnota learning rate prispievala k nižším hodnotám MSE, RMSE aj MAE. 
+Dropout rate mal mierne negatívny vplyv na výslednú presnosť modelu.
+
+
+\subsubsection{Architektura Large}
+\begin{table}[h]
+\caption{Korelácia testovacích parametrov a výsledkov v CNN Large}
+\label{tab:large_corr}
 \begin{tabular}{ | c |  c  c c c  c |}
 \hline
 	LARGE		& čas trénovania &  epoch trained & MSE &  RMSE  & MEA  \\
@@ -489,21 +536,112 @@ dropout rate & 0,1606 & 0,2167 & 0,1234 & 0,1037  & 0,1411 \\
 danse units & 0,1705& 0,1842 & -0,1889 & -0,1604 & -0,1662 \\
 \hline
 \end{tabular}
-\caption{tabuĺka: Tabuľka závyslostí archytektúry Large}
 \end{table}
 
-Z tabuliek môžeme vidieť že pri použití malej neurónovej siete má na presnosť natrénovaného modelu aj na čas trénovania največí vpliv velkosť vstupných obrázkov. Tento fakt je konzistentný pri všetkých velkostiach sietí ale pri architektúre s označením large je korelácia velkosti obrázkov a času záporná. \ref{tabuľka: Tabuľka závyslostí archytektúry Small}
+Architektúra Large CNN dosiahla najlepšie výsledky spomedzi všetkých testovaných modelov. Najvýraznejší vplyv na výsledné chyby mala opäť veľkosť vstupných obrázkov.  Zaujímavým výsledkom bola záporná korelácia medzi veľkosťou obrázkov a časom tréningu. Vplyv learning rate bol podobný ako pri architektúre Medium CNN. Vyššia hodnota learning rate umožnila rýchlejšiu a stabilnejšiu konvergenciu modelu.
 
-\begin{figure}[ht]
-\includegraphics[width=15cm]{"img/zavyslost_t_img_MEA.png"}
-\end{figure}
 
-Ako najlepší model z našich testov vyšiel Model Large s najmenšou velkostou vstupných obrázkov 64x64, learning rate 0.001, dropout rate 0.2, dense unit 128 natrénovaný na 42 epochách za 203.4643 sekúnd, priemerná doba trénovania je 282.09974s a medián doby trénovania je 190.6278s. Priemerná obsolútna odchylka (MAE) tothoto modelu je 28.3954 zatial čo medián pre túto hodnotu je 85.0767.  
+\subsection{Porovnanie Architektúr}
 
-\begin{figure}[ht]
+\begin{table}[H]
+\centering
+\caption{Priemerné hodnoty MAE a RMSE pre jednotlivé architektúry CNN}
+\label{tab:architecture_metrics}
+\begin{tabular}{|c|c c|}
+\hline
+\textbf{Architektúra} & \textbf{Priemerné MAE} & \textbf{Priemerné RMSE} \\ \hline
+Large  & 86.84  & 117.49 \\ 
+Medium & 106.62 & 138.38 \\ 
+Small  & 75.88  & 103.94 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+Tabuľka \ref{tab:architecture_metrics} zobrazuje priemerné hodnoty metrík MAE a RMSE pre jednotlivé navrhnuté architektúry konvolučných neurónových sietí. Najlepšie priemerné výsledky dosiahla architektúra Small CNN, ktorá dosiahla priemernú hodnotu MAE 75.88 a RMSE 103.94 a najhoršie výsledky dosiahla architektúra Medium CNN, pri ktorej bola priemerná hodnota MAE 106.62 a RMSE 138.38.
+
+Zaujímavým je že aj ked Large má najlepší model spomedzi priemerné výsledky boli horšie než pri architektúre Small, ktorá ale má druhý najlepší model s podobnímy výsledkami.  To naznačuje, že architektúra Large bola citlivejšia na voľbu hyperparametrov a veľkosti vstupných obrázkov. Pri vhodnej konfigurácii dokázala dosiahnuť veľmi dobré výsledky, avšak pri nevhodných nastaveniach dochádzalo k výraznému zhoršeniu presnosti. Naopak architektúra Small má stabilnejšie výsledky pri rôznymi konfiguráciách. 
+Výsledky zároveň ukazujú, že vyššia komplexnosť architektúry automaticky neznamená lepšiu priemernú presnosť modelu. 
+
+\subsection{Vplyv zmeny velksoti vstupných obázkov }
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=15cm]{"img/size_RMSE.png"}
+\caption{závyslosť RMSE od velkosti vstupného obrázku}
+\label{fig:size_rmse}
 \end{figure}
-Z obrázku si môžeme všymnuť že zo zväčujúcim sa rozlíšením vstupného obrázu narastá RMSE, z čoho môžeme usúdiť že vstupné dáta ktpré boly zmenšené na menšie rozmery sú lepším vstupom ako dáta v plnom albo väčšom rozlíšený a to bez ohladu na použitú archytektúru alebo iné parametre.  
+
+\begin{table}[H]
+\centering
+\caption{Priemerné hodnoty MAE a RMSE pre jednotlivé veľkosti vstupných obrázkov}
+\label{tab:image_size_metrics}
+\begin{tabular}{|c c c|}
+\hline
+\textbf{Veľkosť obrázka} & \textbf{Priemerné MAE} & \textbf{Priemerné RMSE} \\ \hline
+64x64   & 71.06  & 99.05  \\ 
+96x96   & 79.82  & 107.85 \\ 
+128x128 & 89.06  & 117.67 \\ 
+160x160 & 104.48 & 136.90 \\
+224x224 & 104.47 & 138.22 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+Z grafu na obrázku \ref{fig:size_rmse} je možné pozorovať, že so zvyšujúcim sa rozlíšením vstupných obrázkov dochádzalo vo všeobecnosti k rastu hodnoty RMSE. Toto nám potvrdzuje aj tabulka \ref{tab:image_size_metrics} kde vydíme priemerné hodnoty MAE a RMSE pre jednotlivé rozmery vstupných obrázkov naprieč všetkými experimentami a z výsledkov je možné pozorovať postupný rast hodnôt MAE aj RMSE so zvyšujúcim sa rozlíšením vstupných obrázkov. Z tohoto výsledku môžeme usúdiť, že menšie rozmery obrázkov sú vhodnejšie ako väčšie obrázky s väčším rozlíšením. Jedným z možných dôvodov môže byť skutočnosť, že pri väčších rozmeroch vstupných obrázkov sa zvyšuje množstvo detailov a šumu, ktoré nemusia byť relevantné pre predikciu intenzity slnečného žiarenia. 
+Model tak môže byť náchylnejší na pretrénovanie a zároveň sa výrazne zvyšuje výpočtová náročnosť tréningu. Naopak menšie rozmery obrázkov pravdepodobne zachovali iba najdôležitejšie globálne obrazové charakteristiky oblohy, ktoré boli pre predikciu žiarenia postačujúce.
+\subsection{Najlepší model}
+
+Najlepšie výsledky dosiahol model architektúry \textbf{Large CNN} pri nasledovnej konfigurácii:
+
+\begin{itemize}
+	\item veľkosť obrázkov: $64 \times 64$
+	\item learning rate: $0.001$
+	\item dropout rate: $0.2$
+	\item počet neurónov Dense vrstvy: $128$
+	\item počet epoch: $42$
+\end{itemize}
+
+Celkový čas tréningu tohto modelu bol $203.46$ sekundy. 
+Model dosiahol hodnotu:
+
+\begin{itemize}
+	\item test\_MAE = $28.3954$
+	\item test\_RMSE = $39.02075$
+	\item test\_MSE = $1522.6194$
+\end{itemize}
+
+Priemerný čas tréningu všetkých modelov bol $282.0997$ sekundy, pričom medián predstavoval $190.6278$ sekundy. Priemerná hodnota MAE všetkých modelov ($89.7807$) bola výrazne vyššia ako výsledok najlepšieho modelu($28.3954$), čo potvrdzuje výrazne lepšiu presnosť zvolenej konfigurácie.
+
+\subsection{Dalšie dobré modely}
+\begin{table}[H]
+\centering
+\caption{Najlepšie dosiahnuté modely podľa hodnoty testovacej MAE}
+\label{tab:top_models}
+\begin{tabular}{|c c c c c c c c c|}
+\hline
+Arch. & Img size & LR & Dropout & Dense & Epochs & Time [s] & MAE & RMSE \\ \hline
+
+Large & 64x64 & 0.001 & 0.2 & 128 & 42 & 203.46 & 28.40 & 39.02 \\ \hline
+Small & 96x96 & 0.001 & 0.2 & 64 & 28 & 118.57 & 29.60 & 40.98 \\ \hline
+Large & 128x128 & 0.001 & 0.3 & 64 & 49 & 710.94 & 34.04 & 40.61 \\ \hline
+Small & 128x128 & 0.0001 & 0.2 & 128 & 44 & 222.11 & 35.36 & 51.46 \\ \hline
+Large & 64x64 & 0.001 & 0.2 & 64 & 37 & 203.64 & 37.33 & 43.71 \\ \hline
+Large & 128x128 & 0.001 & 0.3 & 128 & 50 & 709.94 & 40.50 & 58.19 \\ \hline
+
+\end{tabular}
+\end{table}
+
+V tejto časti sa zamerame na 5 modelov s najlepšími výsledkamy hned po najlepšom. Tabuľka \ref{tab:top_models} zobrazuje najlepšie modely dosiahnuté počas experimentov zoradené podľa hodnoty testovacej metriky MAE.  Najlepšie výsledky dosiahla architektúra Large CNN pri veľkosti vstupných obrázkov 64x64, hodnote learning rate 0.001, dropout rate 0.2 a 128 neurónoch v Dense vrstve. Tento model dosiahol hodnotu testovacej MAE 28.40 a RMSE 39.02 pri celkovom čase tréningu približne 203 sekúnd.
+Z výsledkov je možné pozorovať, že najlepšie modeli používaly menšie rozmery vstupných obrázkov, predovšetkým 64x64 a 96x96. Tento výsledok podporuje predchádzajúce pozorovania, podľa ktorých  väčšie rozlíšenia neprinášali zlepšenie presnosti modelov, ale naopak často spôsobovali zhoršenie výsledkov a zvýšenie výpočtovej náročnosti.
+Zaujímavým výsledkom je aj to, že druhý najlepší model má architektúru Small a rozmery obrázkov 96x96. Táto dosiahla veľmi podobné výsledky ako najlepší model, ale pri výrazne nižšom tréningovom čase čo naznačuje, že jednoduchšie architektúry môžu byť pri vhodne zvolenom rozlíšení a hyperparametroch podobne efektívne ako velké architektúry. 
+Naopak najlepšie modely využívajúce väčšie rozlíšenia vstupných obrázkov, napríklad 128x128, vykazovali vyššie hodnoty MAE aj RMSE a zároveň podstatne dlhší čas tréningu. 
+Pri architektúre Large CNN sa čas tréningu pri rozlíšení 128x128 pohyboval okolo 710 sekúnd, čo je viac ako tri kráť viac času potrebného na vsrupný obrázok 64x64.
+Výsledky zároveň ukazujú, že hodnota learning rate 0.001 bola pri najlepších modeloch lepšia než hodnota 0.0001 ktorú úpoužíval iba jeden model a väčšina modelov používala drop out rate 0.2.  
+
+\subsection{Diskusia k výsledkom -- dat do záveru}
+
+
+Výsledky experimentov ukázali, že najvýznamnejší vplyv na presnosť všetkých modelov mala veľkosť vstupných obrázkov.  Vo väčšine prípadov dosahovali lepšie výsledky modely trénované na menších rozmeroch obrazových dát. Zároveň sa ukázalo, že zložitejšie architektúry CNN dokázali lepšie extrahovať príznaky z obrazových dát a dosahovali nižšie hodnoty chýb. Najlepšie výsledky dosiahla architektúra Large CNN, ktorá obsahovala najväčší počet konvolučných vrstiev a filtrov. Výsledky zároveň naznačujú, že pri riešení úloh predikcie intenzity slnečného žiarenia nemusí byť použitie vysokého rozlíšenia vstupných obrázkov výhodné a maly by byť použité menšie rozmery vstupných dát umožňujú rýchlejší tréning, nižšiu výpočtovú náročnosť a v tomto prípade aj lepšiu presnosť predikcie.
 
 
 
