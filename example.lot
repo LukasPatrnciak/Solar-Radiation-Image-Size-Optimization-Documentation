@@ -1,4 +1,11 @@
 \babel@toc {slovak}{}\relax 
-\contentsline {table}{\numberline {2}{\ignorespaces Prehľad navrhnutých architektúr CNN}}{8}{table.caption.13}%
+\contentsline {table}{\numberline {2}{\ignorespaces Prehľad navrhnutých architektúr CNN}}{8}{table.caption.14}%
+\contentsline {table}{\numberline {3}{\ignorespaces Korelácia hyperparametrov a metrík pre všetky architektúry CNN}}{15}{table.caption.25}%
+\contentsline {table}{\numberline {4}{\ignorespaces Korelácia hyperparametrov a metrík pre architektúru Small CNN}}{16}{table.caption.28}%
+\contentsline {table}{\numberline {5}{\ignorespaces Korelácia hyperparametrov a metrík pre architektúru Medium CNN}}{16}{table.caption.30}%
+\contentsline {table}{\numberline {6}{\ignorespaces Korelácia testovacích parametrov a výsledkov v CNN Large}}{17}{table.caption.32}%
+\contentsline {table}{\numberline {7}{\ignorespaces Priemerné hodnoty MAE a RMSE pre jednotlivé architektúry CNN}}{17}{table.caption.34}%
+\contentsline {table}{\numberline {8}{\ignorespaces Priemerné hodnoty MAE a RMSE pre jednotlivé veľkosti vstupných obrázkov}}{18}{table.caption.37}%
+\contentsline {table}{\numberline {9}{\ignorespaces Najlepšie dosiahnuté modely podľa hodnoty testovacej MAE}}{19}{table.caption.40}%
 \babel@toc {slovak}{}\relax 
 \babel@toc {slovak}{}\relax 

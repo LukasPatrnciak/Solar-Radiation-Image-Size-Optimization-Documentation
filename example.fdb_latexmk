@@ -1,17 +1,17 @@
 # Fdb version 4
-["biber example"] 1778264643.0944 "example.bcf" "example.bbl" "example" 1778272087.47472 0
-  "example.bcf" 1778272087 108843 88b1b4ca9600b9f93fa647d39151c109 "pdflatex"
+["biber example"] 1778264643.0944 "example.bcf" "example.bbl" "example" 1778431853.18114 0
+  "example.bcf" 1778431852 108843 88b1b4ca9600b9f93fa647d39151c109 "pdflatex"
   "includes/bibliography.bib" 1778100605 1625 ad94de94cc4270233adacf38ebe49275 ""
   (generated)
   "example.bbl"
   "example.blg"
   (rewritten before read)
-["cusdep acn acr example"] 1778265030.51649 "example.acn" "example.acr" "example" 1778272087.476 0
-  "example.acn" 1778272087 494 a82e7af806183b882dddd57cb0567c00 "pdflatex"
+["cusdep acn acr example"] 1778265030.51649 "example.acn" "example.acr" "example" 1778431853.18205 0
+  "example.acn" 1778431852 494 a82e7af806183b882dddd57cb0567c00 "pdflatex"
   (generated)
   "example.acr"
   (rewritten before read)
-["pdflatex"] 1778272083.26844 "c:/Users/LukasPatrnciak/OneDrive/Dokumenty/School/FEI_STU/ING/2SEM/MKR/Solar-Radiation-Image-Size-Optimization-Documentation/example.tex" "example.pdf" "example" 1778272087.47643 0
+["pdflatex"] 1778431848.56126 "c:/Users/LukasPatrnciak/OneDrive/Dokumenty/School/FEI_STU/ING/2SEM/MKR/Solar-Radiation-Image-Size-Optimization-Documentation/example.tex" "example.pdf" "example" 1778431853.18245 0
   "FEIstyle.cls" 1778269145 24199 e31a0201aa148ad393b2d51b50e26425 ""
   "c:/TeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1761084460 2375 baa924870cfb487815765f9094cf3728 ""
   "c:/TeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1761084460 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
@@ -206,17 +206,19 @@
   "c:/TeX/texmf.cnf" 1761088415 755 639003dd4ad18b875b8369800f2abbde ""
   "c:/Users/LukasPatrnciak/OneDrive/Dokumenty/School/FEI_STU/ING/2SEM/MKR/Solar-Radiation-Image-Size-Optimization-Documentation/example.tex" 1778269201 2251 aa90a30946c978807823f28c7c11784b ""
   "example.acr" 1778265032 845 5642456f2500b89adced5adf0d6c22fc "cusdep acn acr example"
-  "example.aux" 1778272086 3394 bfe7bb9b0d6efed8ad886bd1b097b012 "pdflatex"
+  "example.aux" 1778431852 8022 bbe89af6b4798d4556d01fdbf254db4b "pdflatex"
   "example.bbl" 1778264651 9489 91260968f124d412ed6fa05dfa62ffca "biber example"
-  "example.lof" 1778272087 87 e246efa59ef836d994766d41333ca0f2 "pdflatex"
-  "example.lot" 1778272087 202 e98da69eea9ff4acecf455ce46621910 "pdflatex"
-  "example.out" 1778272087 1388 438fb30cc1725f4498acabd368a89f52 "pdflatex"
-  "example.run.xml" 1778272087 2475 d19cbb315ff5a2c811bb12b53b1a3156 "pdflatex"
+  "example.lof" 1778431852 325 af343a4af0fb2c5d4348d6376b2b6a0a "pdflatex"
+  "example.lot" 1778431852 1200 b976248635695df55a10accd21afece3 "pdflatex"
+  "example.out" 1778431852 3961 aed7ac957862cf5b166751513b8a4e89 "pdflatex"
+  "example.run.xml" 1778431852 2475 d19cbb315ff5a2c811bb12b53b1a3156 "pdflatex"
   "example.tex" 1778269201 2251 aa90a30946c978807823f28c7c11784b ""
-  "example.toc" 1778272087 919 7828fc368925e8b06515da8f9bc516e2 "pdflatex"
+  "example.toc" 1778431852 2262 442cd0c6b509eca9b855d4ed6851f555 "pdflatex"
+  "img/sample_images_test.png" 1778431485 295905 a985e00e899a3cdc33fa73fe63618d4e ""
+  "img/size_RMSE.png" 1778431485 41272 f2229923c8226fd70f0e9c762d1b5ede ""
   "includes/abstract.tex" 1778099280 1458 a02517a6a14071e2ad6ac4ba43b7535f ""
-  "includes/conclusion.tex" 1778101223 1165 e8fc3de0ebb3a548f9a3fe959d96e57d ""
-  "includes/core.tex" 1778272084 21738 5a9694c14de70944167eb36c48c3b89d ""
+  "includes/conclusion.tex" 1778431485 1918 e6bd0e8d5005d9c01364e627a1de5cc3 ""
+  "includes/core.tex" 1778431847 42594 669ce88906f921d34ddc788c0e2de2c6 ""
   "includes/glossary.tex" 1778265025 264 9125dd3ede1b50553e57bd8671b99142 ""
   "includes/introduction.tex" 1778265226 1158 cd78109f058808adf2f07d986dd20bb6 ""
   (generated)

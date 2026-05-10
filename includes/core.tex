@@ -360,7 +360,9 @@ Pre spracovanie vstupných obrázkov bol použitý modul \textbf{tensorflow.kera
     \item \textbf{img\_to\_array} -- prevod obrázkov do numerickej reprezentácie vo forme numerického poľa.
 \end{itemize}
 
-\subsection{predspracovanie dát}
+
+\vspace{\baselineskip}
+\subsection{Predspracovanie dát}
 Pred samotným tréningom modelov bolo potrebé  vykonať predspracovania vstupných dát. Na načítanie a úpravu boli implementované funkcie \textbf{load\_and\_preprocess\_image()} a \textbf{create\_tensorflow\_dataset()}. Každý vstupný obrázok bol najskôr načítaný z disku a následne transformovaný na požadovaný rozmer podľa aktuálne testovanej konfigurácie modelu. Po zmene rozmerov bol obrázok prevedený na numerické pole typu \textit{NumPy array}. Hodnoty pixelov boli následne normalizované do intervalu $\langle 0,1 \rangle$ vydelením hodnotou $255$:
  \begin{equation*}
 x_{norm} = \frac{x}{255}
@@ -377,12 +379,16 @@ Kde $\mu$ je priemernú hodnotu cieľovej premennej a $\sigma$ je smerodajná od
 
 Po načítaní a normalizácii boli dáta prevedené do formátu \textbf{TensorFlow Dataset}, ktorý umožňuje rozdelovanie dát a používať (\textit{batching}), miešanie dát (\textit{shuffling}) a optimalizáciu načítavanie vstupných dát počas tréningu .
 
-\subsection{Implementcia architektúr CNN}
+
+\vspace{\baselineskip}
+\subsection{Architektúry CNN}
 
 Všetky chitektúry boli implementované cez sekvenčný model  \textbf{tensorflow.keras.Sequential}. Každý model pozostáva z viacerých blokov konvolučných, normalizačných, batch, pooling, dropout a regulačných vrstiev. 
 
 V konvolučnej vrstve sa využívali filtre o veľkosti 3x3 a aktivačná ReLU funkcia. Po každej skupine konvolučných vrstiev nasledovala pooling vrstva typu MaxPooling2D s veľkosťou pooling okna 2x2, ktorá znižuje priestorové rozmery príznakových máp. Na konci konvolučnej časti modelu je GlobalAveragePooling2D vrstva, na prevádzanie dvojrozmerných príznakových máp na jednorozmerný vektor.  Táto vrstva tiež znižuje počet parametrov trénovaného modelu v porovnaní s klasickým flatten prístupom a toto tiež pomáha redukovať riziko overfittingu. Za global pooling vrstvou je dense vrstva s nastaviteľným počtom neurónov a  následne dropout vrstva. Na výstupe je dense vrstva s jedným neurónom bez aktivačnej funkcie. 
 
+
+\vspace{\baselineskip}
 \subsection{Automatizácia experimentov}
 
 Proces trénovanai modelov a ich vyhodnocovania bol v tejto implementácii automatizovaný a to tak že program postupne testoval rôzne kombinácie architektúr, veľkostí vstupných obrázkov a hyperparametrov. Pre každú kombináciu parametrov a architektúry bol automaticky:
@@ -397,10 +403,15 @@ Proces trénovanai modelov a ich vyhodnocovania bol v tejto implementácii autom
 
 Počas tréningu sa zaznamenávali hodnoty tréningovej a validačnej chyby pre každú epochu.  Tieto údaje boli následne použité na tvorbu grafov na zobrazenie dosiahnutých výsledkov a procesu trénovia. Výsledky všetkých experimentov sa ukladali do tabulky do výstupného formátu .csv, čo umožnuje ich následné porovnanie a analýzu pomocou korelácií medzi parametrami modelov a dosiahnutými výsledkami.
 
+
+
+\vspace{\baselineskip}
 \subsection{Vyhodnotenie modelov}
 
 Po dokončení tréningu boli jednotlivé modely vyhodnotené na testovacej množine kde pre každý model boli vypočítané MSE, MAE a RMSE a to v normalizovanej aj pôvodnej hodnote. Tiež bol na vyhodnotenie modelu boli zaznamenávané aj časi tréningu modelu a počet epoch potrebných na konvergenciu pre spusreeným funkcie earlystop a teda môžeme porovnať nielen presnosť rôznich testovaných modelov, ale aj ich výpočtovú náročnosť. Súčasťou implementácie bolo aj automatické generovanie grafov závislosti jednotlivých hyperparametrov od výsledných metrík. Tieto grafy boli následne použité pri analýze vplyvu rozmerov vstupných obrázkov a hyperparametrov na presnosť modelov.
 
+
+\vspace{\baselineskip}
 \subsection{Použitý HW}
 
 Celý proces trénovania ako už bolo spomenuté je implementovaný v jednom python programe a je navrhnutý ako jeden celok ktorý od spustenia po skončenie nevyžaduje žiadny zásah a na konci automaticky poskytne grafy s dosiahnutími výsledkami. Na spustenie tohoto programu bol použitý software CUDA  spúštaná cez WSL2 na NVIDIA GeForce RTX 4070 Ti (12 GB) a AMD Ryzen 5 7500F 6-Core Processor (3.70 GHz), 32.0 GB RAM.
@@ -420,6 +431,8 @@ Cieľom experimentálnej časti bolo identifikovať optimálnu kombináciu archi
 
 Hlavným cieľom experimentov bolo minimalizovať hodnotu \textbf{MAE}, ktorá predstavuje priemernú absolútnu odchýlku predikcie od reálnych hodnôt intenzity slnečného žiarenia. Pri vyhodnocovaní výsledkov sme sledovaly aj rozdiel medzi hodnotami MAE a RMSE. V prípade, že hodnota RMSE výrazne prevyšovala hodnotu MAE, znamenalo to, že model síce vo väčšine prípadov dosahoval dobré výsledky, avšak pri niektorých vzorkách generoval výrazne väčšie chyby predikcie. Súčasne bol sledovaný rozdiel medzi trénovacou a validačnou stratou. Výrazne nižšia trénovacia chyba pri súčasne vysokej validačnej chybe naznačovala pretrénovanie modelu (\textit{overfitting}).
 
+
+\vspace{\baselineskip}
 \subsection{Vplyv hyperparametrov na výsledky}
 
 Na analýzu vplyvu jednotlivých hyperparametrov na výslednú presnosť modelov a čas tréningu bola použitá korelačná analýza. 
@@ -451,8 +464,13 @@ danse units			&  0,0637	  		&  0,0841			& -0,0939		& -0,0813 		& -0,0831 \\
 
 Z tabuľky je možné pozorovať, že najvýraznejší vplyv na čas tréningu mala veľkosť vstupných obrázkov.  Rast rozlíšenia vstupných dát zvyšoval výpočtovú náročnosť modelov a zároveň mal negatívny vplyv aj na výsledné hodnoty MSE, RMSE a MAE. Naopak vyššia hodnota \textit{learning rate} mala mierne pozitívny vplyv na výsledné chyby modelov, čo naznačuje, že pri použitých architektúrach bolo učenie s hodnotou $0.001$ efektívnejšie ako s hodnotou $0.0001$. Dropout rate a počet neurónov v Dense vrstve mali v porovnaní s veľkosťou obrázkov výrazne menší vplyv na výsledné metriky.
 
+
+\vspace{\baselineskip}
 \subsection{Vyhodnotenie jednotlivých architektúr}
-\subsubsection{Small CNN }
+V tejto kapitole budú popísané dosiahnuté vysledky pre jednotlivé architektúry.
+
+\vspace{\baselineskip}
+\subsubsection{Architektúra small}
 %%%%%%%%%%%%%%%%%%%%
 %
 %
@@ -477,7 +495,8 @@ danse units 			&  -0,0518 		& -0,0229 		& 0,1054 	& 0,0277 	& 0,0277\\
 
 Pri architektúre Small CNN bol najvýraznejším faktorom opäť rozmer vstupných obrázkov.  So zvyšujúcim sa rozlíšením výrazne rástol čas tréningu modelu, pričom zároveň dochádzalo aj k vemi jemnému zhoršeniu výsledných metrík. Táto architektúra bola najmenej výpočtovo náročná, avšak v porovnaní so zložitejšími architektúrami dosahovala horšiu presnosť predikcie. 
 
-\subsubsection{architektura medium}
+\vspace{\baselineskip}
+\subsubsection{Architektúra medium}
 \begin{table}[h]
 \caption{Korelácia hyperparametrov a metrík pre architektúru Medium CNN}
 \label{tab:medium_corr}
@@ -497,7 +516,8 @@ Architektúra Medium CNN vykazovala výraznejšiu závislosť medzi veľkosťou 
 Dropout rate mal mierne negatívny vplyv na výslednú presnosť modelu.
 
 
-\subsubsection{Architektura Large}
+\vspace{\baselineskip}
+\subsubsection{Architektúra Large}
 \begin{table}[h]
 \caption{Korelácia testovacích parametrov a výsledkov v CNN Large}
 \label{tab:large_corr}
@@ -516,6 +536,7 @@ danse units & 0,1705& 0,1842 & -0,1889 & -0,1604 & -0,1662 \\
 Architektúra Large CNN dosiahla najlepšie výsledky spomedzi všetkých testovaných modelov. Najvýraznejší vplyv na výsledné chyby mala opäť veľkosť vstupných obrázkov.  Zaujímavým výsledkom bola záporná korelácia medzi veľkosťou obrázkov a časom tréningu. Vplyv learning rate bol podobný ako pri architektúre Medium CNN. Vyššia hodnota learning rate umožnila rýchlejšiu a stabilnejšiu konvergenciu modelu.
 
 
+\vspace{\baselineskip}
 \subsection{Porovnanie Architektúr}
 
 \begin{table}[H]
@@ -537,6 +558,8 @@ Tabuľka \ref{tab:architecture_metrics} zobrazuje priemerné hodnoty metrík MAE
 Zaujímavým je že aj ked Large má najlepší model spomedzi priemerné výsledky boli horšie než pri architektúre Small, ktorá ale má druhý najlepší model s podobnímy výsledkami.  To naznačuje, že architektúra Large bola citlivejšia na voľbu hyperparametrov a veľkosti vstupných obrázkov. Pri vhodnej konfigurácii dokázala dosiahnuť veľmi dobré výsledky, avšak pri nevhodných nastaveniach dochádzalo k výraznému zhoršeniu presnosti. Naopak architektúra Small má stabilnejšie výsledky pri rôznymi konfiguráciách. 
 Výsledky zároveň ukazujú, že vyššia komplexnosť architektúry automaticky neznamená lepšiu priemernú presnosť modelu. 
 
+
+\vspace{\baselineskip}
 \subsection{Vplyv zmeny velksoti vstupných obázkov }
 
 \begin{figure}[H]
@@ -564,13 +587,16 @@ Výsledky zároveň ukazujú, že vyššia komplexnosť architektúry automatick
 
 Z grafu na obrázku \ref{fig:size_rmse} je možné pozorovať, že so zvyšujúcim sa rozlíšením vstupných obrázkov dochádzalo vo všeobecnosti k rastu hodnoty RMSE. Toto nám potvrdzuje aj tabulka \ref{tab:image_size_metrics} kde vydíme priemerné hodnoty MAE a RMSE pre jednotlivé rozmery vstupných obrázkov naprieč všetkými experimentami a z výsledkov je možné pozorovať postupný rast hodnôt MAE aj RMSE so zvyšujúcim sa rozlíšením vstupných obrázkov. Z tohoto výsledku môžeme usúdiť, že menšie rozmery obrázkov sú vhodnejšie ako väčšie obrázky s väčším rozlíšením. Jedným z dôvodov môže byť to že pri väčších rozmeroch sa zvyšujú  detaili a šumu, ktoré nie sú vhodné pre predikciu. 
 
-\subsection{Najlepší model}
 
+\vspace{\baselineskip}
+\subsection{Najlepší model}
 Najlepšie výsledky dosiahol model architektúry \textbf{Large CNN} pri nasledovnej konfigurácii: veľkosť obrázkov: 64x64, learning rate: 0.001, dropout rate: 0.2, počet neurónov Dense vrstvy: 128, počet epoch: 42 
 Celkový čas tréningu tohto modelu bol 203.46 sekundy.  Model dosiahol hodnotu: test\_MAE = 28.3954, test\_RMSE = 39.02075, test\_MSE = 1522.6194.
 
 Priemerný čas tréningu všetkých modelov bol 282.0997 sekundy, pričom medián predstavoval 190.6278 sekundy. Priemerná hodnota MAE všetkých modelov (89.7807) bola výrazne vyššia ako výsledok najlepšieho modelu(28.3954), čo potvrdzuje výrazne lepšiu presnosť zvolenej konfigurácie.
 
+
+\vspace{\baselineskip}
 \subsection{Dalšie dobré modely}
 \begin{table}[H]
 \centering

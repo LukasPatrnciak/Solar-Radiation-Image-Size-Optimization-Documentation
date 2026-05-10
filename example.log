@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.22)  8 MAY 2026 22:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.22)  10 MAY 2026 18:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1152,35 +1152,74 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+<img/sample_images_test.png, id=218, 1144.9977pt x 266.9172pt>
+File: img/sample_images_test.png Graphic file (type png)
+<use img/sample_images_test.png>
+Package pdftex.def Info: img/sample_images_test.png  used on input line 134.
+(pdftex.def)             Requested size: 426.79134pt x 99.49092pt.
 
 
 [5]
 
-[6]
-Overfull \hbox (38.50409pt too wide) in paragraph at lines 204--211
- [][][][] 
+[6 <./img/sample_images_test.png>]
+
+[7]
+Overfull \hbox (38.50409pt too wide) in paragraph at lines 217--224
+ [][][] 
  []
 
 
 
-[7]
-
 [8]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 254.
+(Font)              <10> on input line 267.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 254.
+(Font)              <7> on input line 267.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 254.
+(Font)              <5> on input line 267.
 
 
 [9]
 
-[10])
+[10]
 
-[11] (./includes/conclusion.tex)
+[11]
+Overfull \hbox (55.17824pt too wide) in paragraph at lines 356--357
+[]\T1/lmr/m/n/12 (-20) Pre spra-co-va-nie vstup-ných ob-ráz-kov bol po-u-ºitý mo-dul \T1/lmr/bx/n/12 (-20) ten-sorf-low.keras.preprocessing.image\T1/lmr/m/n/12 (-20) ,
+ []
 
-[12
+
+Overfull \hbox (1.06487pt too wide) in paragraph at lines 386--387
+\T1/lmr/m/n/12 (-20) V²etky chi-tek-túry boli im-ple-men-to-vané cez sek-ven£ný mo-del \T1/lmr/bx/n/12 (-20) ten-sorf-low.keras.Sequential\T1/lmr/m/n/12 (-20) .
+ []
+
+
+
+[12]
+
+[13]
+
+[14]
+
+[15]
+
+[16]
+
+[17]
+<img/size_RMSE.png, id=293, 363.321pt x 217.467pt>
+File: img/size_RMSE.png Graphic file (type png)
+<use img/size_RMSE.png>
+Package pdftex.def Info: img/size_RMSE.png  used on input line 567.
+(pdftex.def)             Requested size: 284.52756pt x 170.30711pt.
+
+
+[18 <./img/size_RMSE.png>]
+
+[19])
+
+[20] (./includes/conclusion.tex)
+
+[21
 
 
 ]
@@ -1189,7 +1228,7 @@ Package microtype Info: Character `029' is missing
 (microtype)             Ignoring protrusion settings for this character.
 
 
-[13
+[22
 
 
 ] (./example.aux)
@@ -1198,24 +1237,24 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `example.out' has not changed.
-(rerunfilecheck)             Checksum: 438FB30CC1725F4498ACABD368A89F52;1388.
+(rerunfilecheck)             Checksum: AED7AC957862CF5B166751513B8A4E89;3961.
 Package logreq Info: Writing requests to 'example.run.xml'.
 \openout1 = `example.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34582 strings out of 467748
- 638871 string characters out of 5435826
- 1597441 words of memory out of 5000000
- 62580 multiletter control sequences out of 15000+600000
- 709915 words of font info for 181 fonts, out of 8000000 for 9000
+ 34689 strings out of 467748
+ 640597 string characters out of 5435826
+ 1602252 words of memory out of 5000000
+ 62628 multiletter control sequences out of 15000+600000
+ 711186 words of font info for 194 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,8n,131p,2601b,2845s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/TeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/TeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on example.pdf (18 pages, 261872 bytes).
+Output written on example.pdf (27 pages, 687748 bytes).
 PDF statistics:
- 251 PDF objects out of 1000 (max. 8388607)
- 201 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
- 47705 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 403 PDF objects out of 1000 (max. 8388607)
+ 339 compressed objects within 4 object streams
+ 77 named destinations out of 1000 (max. 500000)
+ 47835 words of extra memory for PDF output out of 51595 (max. 10000000)
 

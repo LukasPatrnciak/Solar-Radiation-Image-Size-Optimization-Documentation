@@ -412,6 +412,11 @@ INPUT c:/TeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/TeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/TeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/ec-lmtt12.tfm
+INPUT ./img/sample_images_test.png
+INPUT ./img/sample_images_test.png
+INPUT ./img/sample_images_test.png
+INPUT ./img/sample_images_test.png
+INPUT ./img/sample_images_test.png
 INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/ec-lmr8.tfm
 INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/ec-lmr10.tfm
 INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/rm-lmr10.tfm
@@ -424,6 +429,11 @@ INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/lmsy10.tfm
 INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/lmsy7.tfm
 INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/lmsy5.tfm
 INPUT c:/TeX/texmf-dist/fonts/tfm/public/lm/ec-lmr7.tfm
+INPUT ./img/size_RMSE.png
+INPUT ./img/size_RMSE.png
+INPUT ./img/size_RMSE.png
+INPUT ./img/size_RMSE.png
+INPUT ./img/size_RMSE.png
 INPUT ./includes/conclusion.tex
 INPUT ./includes/conclusion.tex
 INPUT ./includes/conclusion.tex
