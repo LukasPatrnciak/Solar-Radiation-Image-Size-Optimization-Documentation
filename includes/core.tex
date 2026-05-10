@@ -311,7 +311,7 @@ vstupných obrázkov pre jednotlivé architektúry konvolučných neurónových 
 \section{Implementácia}
 Na implementáciu navrhnutého riešenia bol použitý programovací jazyk Python \cite{learningPython} 
 spolu s viacerými externými knižnicami určenými na spracovanie dát a ich vizualizáciu a tvorbu trénovanie 
-konvolučných neurónových sietí.
+konvolučných neurónových sietí. Implementácia bola realizovaná s rôrazom na jednoduché testovanie a automatizáciu experimentov rôznych konfigurácií a bola navrhnutá tak aby výsledky boli jednoducho replikovatelné. 
 Pri implementácii boli použité nasledovné knižnice:
 
 \begin{itemize}[nolistsep, noitemsep]
@@ -332,29 +332,83 @@ Pri implementácii boli použité nasledovné knižnice:
     \item \textbf{tensorflow} -- framework určený na implementáciu a tréning neurónových sietí.
 \end{itemize}
 Implementácia sa skladala z viacerých časti ktoré slúžili na načítanie a kontrolu datasetu, predspracovanie vstupných dát, vytvorenie modelu, automatizáciu trénovania a vyhodnotenie výsledkov a generovanei grafov. 
+
 Na implementáciu konvolučnej neurónovej siete bolo využité rozhranie Keras, ktoré je súčasťou frameworku TensorFlow. Použitý bol modul \textbf{keras.Input} určený na definovanie vstupnej vrstvy neurónovej siete, modul \textbf{tensorflow.keras.layers} obsahujúci konvolučné, pooling a plne prepojené vrstvy a modul \textbf{tensorflow.keras.models} určený na vytváranie architektúr neurónových sietí.
 
 Na optimalizáciu procesu učenia bol použitý algoritmus \textbf{keras.Input}, ktorý sa nachádza v module \textbf{tensorflow.keras.optimizers.Adam}. Súčasťou implementácie boli aj callback mechanizmy z modulu \textbf{tensorflow.keras.callbacks}, konkrétne:
 \begin{itemize}[nolistsep, noitemsep]
-    \item \textbf{EarlyStopping} -- tento mechanizmus slúži na predčasné ukončenie tréningu modelu pri stagnácii validačnej chyby modelu, tento mechanizmus kontroluje zmenu vo validačnej chybe na konci každej trénovacej epochy. 
+
+    \item \textbf{EarlyStopping} -- tento mechanizmus slúži na predčasné ukončenie tréningu modelu pri stagnácii validačnej chyby modelu, tento mechanizmus kontroluje zmenu vo validačnej chybe na konci každej trénovacej epochy. Jeho implemmntáciou sa znižuj riziko pretrénovania modelu a skracuje sa čas trénovania.  
     
-    \item \textbf{ModelCheckpoint} -- toto je mechanizmus implementovaný na automatické ukladanie najlepšieho modelu počas tréningu, keď program dokončí trénovanie modelu a je prpravený trénovať ďalší model, tento mechanizmus ho automaticky uloži na zvolené miesto .    
-    \item \textbf{ReduceLROnPlateau} -- táto funkcia dynamická úprava rýchlosti učenia počas tréningu ak vyhodnotí zhoršenie konvergencie modelu.
+    \item \textbf{ModelCheckpoint} -- toto je mechanizmus implementovaný na automatické ukladanie najlepšieho modelu počas tréningu, keď program dokončí trénovanie modelu a je prpravený trénovať ďalší model, tento mechanizmus ho automaticky uloži na zvolené miesto . 
+   
+    \item \textbf{ReduceLROnPlateau} -- táto funkcia zabezpečuje dynamickú úpravu rýchlosti učenia počas tréningu ak vyhodnotí zhoršenie konvergencie modelu.
 \end{itemize}
 
 Pre spracovanie vstupných obrázkov bol použitý modul \textbf{tensorflow.keras.preprocessing.image}, konkrétne funkcie:
 \begin{itemize}[nolistsep, noitemsep]
     \item \textbf{load\_img} -- načítanie obrazových dát,
     
-    \item \textbf{img\_to\_array} -- prevod obrázkov do numerickej reprezentácie vo forme poľa.
+    \item \textbf{img\_to\_array} -- prevod obrázkov do numerickej reprezentácie vo forme numerického poľa.
 \end{itemize}
 
 \subsection{predspracovanie dát}
-Na načítavanie a úpravu dát pred použitým na trénovanie každý vstupný obrázok prešiel funkciami \textbf{load\_and\_preprocess\_image()} a \textbf{create\_tensorflow\_dataset()}. V týchto funkciách boly vstupy postupne načítané, transformované na velkosť podla požiadaviek aktuálneho testu a následne boly prevedené na numerické pole ktorého hodnota bola normalizovaná doo intervalu 0 až 1. 3tandardiyovaná bola aj hodnota svieťivosti ktorú sledujeme pomocou priemeru a smerodajnej odchylky. 
+Pred samotným tréningom modelov bolo potrebé  vykonať predspracovania vstupných dát. Na načítanie a úpravu boli implementované funkcie \textbf{load\_and\_preprocess\_image()} a \textbf{create\_tensorflow\_dataset()}. Každý vstupný obrázok bol najskôr načítaný z disku a následne transformovaný na požadovaný rozmer podľa aktuálne testovanej konfigurácie modelu. Po zmene rozmerov bol obrázok prevedený na numerické pole typu \textit{NumPy array}. Hodnoty pixelov boli následne normalizované do intervalu $\langle 0,1 \rangle$ vydelením hodnotou $255$:
+ \begin{equation*}
+x_{norm} = \frac{x}{255}
+\end{equation*}
+
+Táto normalizácia prispieva k stabilnejšiemu priebehu učenia neurónovej siete a znižuje riziko numerických problémov počas optimalizácie modelu.
+
+Okrem vstupných obrazových dát bola normalizovaná aj skúmaná hodnota \textit{Irradiance}. 
+A to pomocov implementovaním štandardizácie priemeru a smerodajnej odchýlky:
 \begin{equation*}
 	{x}_{norm} = \frac{x - \mu}{\sigma}
 \end{equation*}
-Kde $\mu$ je priemerná hodnota a $\sigma$ je smerodajná odchylka. Táto normalizácia zlepší stabilitu a učenai a rýchlosť konvergencie počas trénovania. 
+Kde $\mu$ je priemernú hodnotu cieľovej premennej a $\sigma$ je smerodajná odchylka. Táto normalizácia zlepší stabilitu modelov, urýchli proces trénovania a zvýši rýchlosť konvergencie počas trénovania. 
+
+Po načítaní a normalizácii boli dáta prevedené do formátu \textbf{TensorFlow Dataset}, ktorý umožňuje rozdelovanie dát a používať (\textit{batching}), miešanie dát (\textit{shuffling}) a optimalizáciu načítavanie vstupných dát počas tréningu .
+
+\subsection{Implementcia architektúr CNN}
+
+Všetky chitektúry boli implementované cez sekvenčný model  \textbf{tensorflow.keras.Sequential}. Každý model pozostáva z viacerých blokov konvolučných, normalizačných, batch, pooling, dropout a regulačných vrstiev. 
+
+V konvolučnej vrstve sa využívali filtre o veľkosti 3x3 a aktivačná ReLU funkcia. Po každej skupine konvolučných vrstiev nasledovala pooling vrstva typu MaxPooling2D s veľkosťou pooling okna 2x2, ktorá znižuje priestorové rozmery príznakových máp. Na konci konvolučnej časti modelu je GlobalAveragePooling2D vrstva, na prevádzanie dvojrozmerných príznakových máp na jednorozmerný vektor.  Táto vrstva tiež znižuje počet parametrov trénovaného modelu v porovnaní s klasickým flatten prístupom a toto tiež pomáha redukovať riziko overfittingu. Za global pooling vrstvou je dense vrstva s nastaviteľným počtom neurónov a  následne dropout vrstva. Na výstupe je dense vrstva s jedným neurónom bez aktivačnej funkcie. 
+
+\subsection{Automatizácia experimentov}
+
+Proces trénovanai modelov a ich vyhodnocovania bol v tejto implementácii automatizovaný a to tak že program postupne testoval rôzne kombinácie architektúr, veľkostí vstupných obrázkov a hyperparametrov. Pre každú kombináciu parametrov a archytektúry bol automaticky:
+\begin{itemize}[nolistsep, noitemsep]
+    \item vytvorený tréningový, validačný a testovací dataset,
+    \item inicializovaný model neurónovej siete,
+    \item natrénovaný model na dátach z trénovacieho datastu,
+    \item uložené výsledné metriky aj s informáciamy o parametroch,
+    \item uložený najlepší model,
+    \item vygenerované grafy priebehu učenia a dosiahnutých výsledkov.
+\end{itemize}
+
+Počas tréningu sa zaznamenávali hodnoty tréningovej a validačnej chyby pre každú epochu.  Tieto údaje boli následne použité na tvorbu grafov na zobrazenie dosiahnutých výsledkov a procesu trénovia. Výsledky všetkých experimentov sa ukladali do tabulky do výstupného formátu .csv, čo umožnuje ich následné porovnanie a analýzu pomocou korelácií medzi parametrami modelov a dosiahnutými výsledkami.
+
+\subsection{Vyhodnotenie modelov}
+
+Po dokončení tréningu boli jednotlivé modely vyhodnotené na testovacej množine kde pre každý model boli vypočítané MSE, MAE a RMSE a to v normalizovanej aj pôvodnej hodnote. Tiež bol na vyhodnotenie modelu boli zaznamenávané aj časi tréningu modelu a počet epoch potrebných na konvergenciu pre spusreeným funkcie earlystop a teda môžeme porovnať nielen presnosť rôznich testovaných modelov, ale aj ich výpočtovú náročnosť. Súčasťou implementácie bolo aj automatické generovanie grafov závislosti jednotlivých hyperparametrov od výsledných metrík. Tieto grafy boli následne použité pri analýze vplyvu rozmerov vstupných obrázkov a hyperparametrov na presnosť modelov.
+
+\subsection{Použitý HW}
+
+Celý proces trénovania ako už bolo spomenuté je implementovaný v jednom python programe a je navrhnutý ako jeden celok ktorý od spustenia po skončenie nevyžaduje žiadny zásah a na konci automaticky poskytne grafy s dosiahnutími výsledkami. Na spustenie tohoto programu bol použitý software CuDDa (verzia) spôštaná cez WSL2 na GPU a CPU (doplniť čo sa použilo)
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%
+%%  V ý s l e d k y 
+%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Výsledky}
 
@@ -381,6 +435,7 @@ train\_loss\_norm a val\_loss\_norm -- ak velký rozdiel ide o overfitting  -- m
 
 Na vyhodnocovanie vplyvu jednotlivých parametrov na výsledok a čas trénovanie budeme používať koreláciu. 
 \begin{table}[ht]
+\caption{Prehľad navrhnutých architektúr CNN}
 \begin{tabular}{ | c |  c  c c c  c |}
 \hline
 				& čas trénovania 	&  epoch trained 	& MSE 				&  RMSE 		& MEA  \\
